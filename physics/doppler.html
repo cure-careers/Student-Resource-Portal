@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>/* CURE portal guard: in-page anchors scroll instead of navigating; storage never throws */
+(function(){try{var t="__t";localStorage.setItem(t,t);localStorage.removeItem(t);}catch(e){var m={};var mem={getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}},key:function(i){return Object.keys(m)[i]||null},get length(){return Object.keys(m).length}};try{Object.defineProperty(window,"localStorage",{value:mem,configurable:true})}catch(_){}}
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=decodeURIComponent(a.getAttribute("href").slice(1));e.preventDefault();var el=id&&document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});},true);
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href");if(/^https?:/i.test(h)){a.target="_blank";a.rel="noopener";}},true);
+document.addEventListener("submit",function(e){e.preventDefault();},true);})();</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All About Doppler | Interactive Review</title>
+  <style>
+    :root {
+      --navy: #171052;
+      --navy-2: #211765;
+      --gold: #d5a24d;
+      --gold-soft: #fde6cc;
+      --blue-soft: #f8eee7;
+      --green: #55784f;
+      --red: #9a4141;
+      --ink: #171052;
+      --muted: #5d5678;
+      --line: #f2c487;
+      --paper: #fffdfb;
+      --page: #fbf8f5;
+      --shadow: 0 12px 30px rgba(23, 16, 82, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .site-shell { min-height: 100vh; }
+
+    .hero {
+      background: var(--navy);
+      color: white;
+      padding: 64px 22px 54px;
+      border-bottom: 6px solid var(--gold);
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbb98a;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.02;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 18px;
+      margin: 18px 0 0;
+      color: #f7f0e8;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(213,162,77,.62);
+      border-radius: 22px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card strong { display: block; font-size: 19px; }
+    .hero-card span { display: block; color: #eee5dc; margin-top: 4px; }
+
+    .progress-wrap { margin-top: 20px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 13px; color: #f7f0e8; }
+    .progress-track { height: 10px; background: rgba(255,255,255,.18); border-radius: 999px; overflow: hidden; margin-top: 8px; }
+    .progress-bar { height: 100%; width: 0%; background: var(--gold); transition: width .3s ease; }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(251,248,245,.98);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 20px rgba(23,16,82,.08);
+    }
+
+    .tabs {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .tab-btn {
+      border: 1px solid #efbd79;
+      background: white;
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 10px 15px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 20px 70px;
+    }
+
+    .panel { display: none; animation: fade .25s ease; }
+    .panel.active { display: block; }
+    @keyframes fade { from { opacity: .35; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .section-heading {
+      margin-bottom: 22px;
+    }
+    .section-heading h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 42px);
+    }
+    .section-heading p { margin: 8px 0 0; color: var(--muted); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 { margin: 0 0 10px; color: var(--navy); }
+    .card p:last-child { margin-bottom: 0; }
+
+    .direction-card {
+      border-top: 5px solid var(--gold);
+    }
+
+    .shift-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 12px 0 2px;
+    }
+
+    .flow-toggle {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .choice-btn,
+    .primary-btn,
+    .secondary-btn {
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .choice-btn { background: var(--blue-soft); color: var(--navy); border-color: #efbd79; }
+    .choice-btn.active { background: var(--navy); color: white; }
+    .primary-btn { background: var(--navy); color: white; }
+    .secondary-btn { background: white; color: var(--navy); border-color: #d9a85e; }
+
+    .result-box {
+      border-left: 5px solid var(--gold);
+      background: var(--gold-soft);
+      padding: 17px 18px;
+      border-radius: 12px;
+      min-height: 86px;
+    }
+
+    .angle-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .angle-display {
+      display: grid;
+      place-items: center;
+      min-height: 330px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .angle-svg { width: 100%; max-width: 430px; height: auto; }
+    .beam-line { stroke: var(--gold); stroke-width: 8; stroke-linecap: round; }
+    .vessel-line { stroke: var(--navy); stroke-width: 16; stroke-linecap: round; }
+    .flow-arrow { stroke: var(--green); stroke-width: 6; stroke-linecap: round; }
+
+    .slider-card label { font-weight: 700; color: var(--navy); }
+    input[type="range"] { width: 100%; margin: 16px 0; accent-color: var(--navy); }
+    .angle-readout { display: flex; gap: 12px; flex-wrap: wrap; }
+    .stat { background: var(--blue-soft); border-radius: 14px; padding: 14px; flex: 1 1 150px; }
+    .stat span { display: block; font-size: 13px; color: var(--muted); }
+    .stat strong { display: block; color: var(--navy); font-size: 22px; }
+
+    .doppler-card { min-height: 285px; }
+    .doppler-card ul { padding-left: 20px; }
+    .tag { display: inline-block; padding: 4px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; background: var(--gold-soft); color: #684f20; }
+
+    .compare-table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid #cfd8df; padding: 13px; text-align: left; vertical-align: middle; }
+    th { background: var(--navy); color: white; }
+    tr:nth-child(even) td { background: #fbf4ee; }
+
+    .flashcard-wrap { perspective: 1200px; }
+    .flashcard {
+      position: relative;
+      min-height: 260px;
+      transform-style: preserve-3d;
+      transition: transform .55s ease;
+      cursor: pointer;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      background: white;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .face.back { transform: rotateY(180deg); background: var(--navy); color: white; }
+    .face h3 { margin: 0; font-size: 28px; }
+    .flash-controls { display: flex; justify-content: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+
+    .quiz-question { margin-bottom: 22px; }
+    .answers { display: grid; gap: 10px; }
+    .answer {
+      width: 100%;
+      text-align: left;
+      border: 1px solid #cbd5dd;
+      background: white;
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: .2s ease;
+    }
+    .answer:hover { border-color: var(--navy); }
+    .answer.correct { border-color: var(--green); background: #edf5e9; }
+    .answer.incorrect { border-color: var(--red); background: #f9ecec; }
+    .quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 28px; }
+
+    .checklist label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf0f2;
+    }
+    .checklist input { margin-top: 5px; accent-color: var(--navy); }
+
+    .callout {
+      background: var(--gold-soft);
+      border: 1px solid #efbd79;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #cbb98a;
+      text-align: center;
+      padding: 28px 18px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 820px) {
+      .hero-inner, .angle-layout, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .hero { padding-top: 44px; }
+      .hero-card { max-width: 520px; }
+      .nav-wrap { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Academy of Diagnostic &amp; Osteopathic Medicine</p>
+          <h1>All About Doppler</h1>
+          <p>An interactive review of Doppler shift, angles, cosine relationships, Doppler modes, PW versus CW, and aliasing.</p>
+        </div>
+        <aside class="hero-card">
+          <strong>Interactive Doppler Review</strong>
+          <span>Original handout date: March 25, 2026</span>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Review progress</span><span id="progressText">0%</span></div>
+            <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <div class="nav-wrap">
+      <nav class="tabs" aria-label="Doppler review sections">
+        <button class="tab-btn active" data-tab="shift">Doppler Shift</button>
+        <button class="tab-btn" data-tab="angles">Angles &amp; Cosines</button>
+        <button class="tab-btn" data-tab="types">Types of Doppler</button>
+        <button class="tab-btn" data-tab="pwcw">PW vs. CW</button>
+        <button class="tab-btn" data-tab="aliasing">Aliasing</button>
+        <button class="tab-btn" data-tab="quiz">Knowledge Check</button>
+      </nav>
+    </div>
+
+    <main>
+      <section class="panel active" id="shift">
+        <div class="section-heading">
+          <h2>Doppler Shift</h2>
+          <p>The major reflector in Doppler is the red blood cell.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card direction-card">
+            <h3>Explore direction of flow</h3>
+            <p>Select a direction to see the expected frequency shift and common waveform placement.</p>
+            <div class="flow-toggle">
+              <button class="choice-btn active" data-flow="toward">Toward</button>
+              <button class="choice-btn" data-flow="away">Away</button>
+              <button class="choice-btn" data-flow="none">No movement</button>
+            </div>
+            <div class="result-box" aria-live="polite">
+              <div class="shift-value" id="shiftTitle">Positive Doppler shift</div>
+              <div id="shiftExplanation">Blood moving toward the transducer produces an increase in frequency and is typically displayed above the baseline, depending on settings.</div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Clinical associations from the handout</h3>
+            <p><strong>Arteries:</strong> described as supplying organs and tissues with oxygenated blood, commonly shown above the baseline.</p>
+            <p><strong>Veins:</strong> described as draining organs and tissues back toward the heart, commonly shown below the baseline.</p>
+            <p><strong>Exception:</strong> the main portal vein supplies blood to the liver, so its flow is commonly shown above the baseline.</p>
+          </article>
+        </div>
+
+        <div class="callout" style="margin-top:20px;">
+          <strong>Zero shift:</strong> If blood is not moving toward or away from the transducer, there is no Doppler shift. The handout uses an occlusive DVT as an example of absent color fill and waveform because blood flow is blocked.
+        </div>
+      </section>
+
+      <section class="panel" id="angles">
+        <div class="section-heading">
+          <h2>Doppler Angles &amp; Cosines</h2>
+          <p>Move the slider to see how the cosine changes with the insonation angle.</p>
+        </div>
+
+        <div class="angle-layout">
+          <div class="angle-display">
+            <svg class="angle-svg" viewBox="0 0 500 360" role="img" aria-label="Interactive vessel and ultrasound beam angle diagram">
+              <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                  <polygon points="0 0, 10 3, 0 6" fill="#55784f"></polygon>
+                </marker>
+              </defs>
+              <line x1="55" y1="255" x2="445" y2="255" class="vessel-line"></line>
+              <line x1="105" y1="220" x2="395" y2="220" class="flow-arrow" marker-end="url(#arrowhead)"></line>
+              <line id="beamLine" x1="250" y1="255" x2="250" y2="65" class="beam-line"></line>
+              <circle cx="250" cy="255" r="10" fill="#d5a24d"></circle>
+              <text x="55" y="302" fill="#171052" font-size="18" font-weight="700">Vessel / blood flow</text>
+              <text id="angleSvgLabel" x="270" y="185" fill="#171052" font-size="22" font-weight="700">90°</text>
+            </svg>
+          </div>
+
+          <div class="card slider-card">
+            <label for="angleRange">Doppler angle: <span id="angleNumber">90</span>°</label>
+            <input id="angleRange" type="range" min="0" max="180" value="90" step="1" />
+            <div class="angle-readout">
+              <div class="stat"><span>Cosine</span><strong id="cosineValue">0.00</strong></div>
+              <div class="stat"><span>Relative shift</span><strong id="relativeShift">No shift</strong></div>
+            </div>
+            <div class="result-box" style="margin-top:16px;" id="angleExplanation">
+              At 90°, the beam is perpendicular to flow. Cosine 90° = 0, so no Doppler shift is detected.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:20px;">
+          <div class="card"><h3>Key cosine values</h3><p><strong>0° = 1:</strong> maximum positive Doppler shift.</p><p><strong>180° = -1:</strong> maximum negative Doppler shift.</p><p><strong>90° = 0:</strong> no Doppler shift.</p><p><strong>60° = 0.5:</strong> half of the true velocity is represented.</p></div>
+          <div class="card"><h3>Scanning takeaway</h3><p>The handout emphasizes aiming for 60° or less and avoiding vessels that lie flat across the screen.</p><p><strong>Flat = perpendicular = no Doppler shift.</strong></p></div>
+        </div>
+      </section>
+
+      <section class="panel" id="types">
+        <div class="section-heading">
+          <h2>Types of Doppler</h2>
+          <p>Review what each mode tells you.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card doppler-card">
+            <span class="tag">Color Doppler</span>
+            <h3>Overview of flow</h3>
+            <ul>
+              <li>Presence of flow</li>
+              <li>Direction of flow</li>
+              <li>Flow style, such as laminar or turbulent</li>
+              <li>Average or mean velocities</li>
+            </ul>
+          </article>
+          <article class="card doppler-card">
+            <span class="tag">Pulsed Wave</span>
+            <h3>Specific velocity data</h3>
+            <ul>
+              <li>Presence of flow</li>
+              <li>Direction of flow</li>
+              <li>Flow style</li>
+              <li>Specific velocities, including PSV and EDV</li>
+            </ul>
+          </article>
+          <article class="card doppler-card">
+            <span class="tag">Power Doppler</span>
+            <h3>Sensitive detection</h3>
+            <ul>
+              <li>Presence of flow only</li>
+              <li>More sensitive than Color and PW Doppler</li>
+              <li>Useful for very low flow and deep vessels</li>
+              <li>Can help distinguish trickle flow from total occlusion</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="pwcw">
+        <div class="section-heading">
+          <h2>Pulsed Wave vs. Continuous Wave</h2>
+          <p>Use the comparison and flip cards to review the major differences.</p>
+        </div>
+
+        <div class="compare-table-wrap card">
+          <table>
+            <thead><tr><th>Feature</th><th>Pulsed Wave</th><th>Continuous Wave</th></tr></thead>
+            <tbody>
+              <tr><td>Number of crystals</td><td>1</td><td>2</td></tr>
+              <tr><td>High velocity measurement</td><td>Decent</td><td>Excellent</td></tr>
+              <tr><td>Aliasing</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Nyquist limit</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Depth information</td><td>Yes, range specificity</td><td>No, range ambiguity</td></tr>
+              <tr><td>Anatomic image</td><td>Yes</td><td>No</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="flashcard-wrap">
+            <div class="flashcard" id="pwCard" tabindex="0" role="button" aria-label="Flip Pulsed Wave flashcard">
+              <div class="face front"><div><span class="tag">Tap to flip</span><h3>Pulsed Wave</h3><p>What are its key advantages and limitations?</p></div></div>
+              <div class="face back"><div><h3>Pulsed Wave</h3><p><strong>Pros:</strong> anatomic image and depth information through range specificity.</p><p><strong>Cons:</strong> Nyquist limit, aliasing, and less effective for very high velocities.</p></div></div>
+            </div>
+          </div>
+          <div class="flashcard-wrap">
+            <div class="flashcard" id="cwCard" tabindex="0" role="button" aria-label="Flip Continuous Wave flashcard">
+              <div class="face front"><div><span class="tag">Tap to flip</span><h3>Continuous Wave</h3><p>What are its key advantages and limitations?</p></div></div>
+              <div class="face back"><div><h3>Continuous Wave</h3><p><strong>Pros:</strong> no Nyquist limit, no aliasing, and excellent measurement of high velocities.</p><p><strong>Cons:</strong> no anatomic image and no depth information because of range ambiguity.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="aliasing">
+        <div class="section-heading">
+          <h2>Aliasing</h2>
+          <p>Review what it looks like, what causes it, and how to correct it.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Color Doppler aliasing</h3>
+            <p>Appears as a mosaic of colors within the vessel.</p>
+            <p>It may indicate that the scale is set too low for that vessel, or it may represent turbulent flow.</p>
+          </div>
+          <div class="card">
+            <h3>PW Doppler aliasing</h3>
+            <p>Waveform peaks are cut off, wrap around the baseline, and appear in the opposite direction.</p>
+            <p><strong>Nyquist limit = PRF / 2</strong></p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:20px;">
+          <div class="card checklist">
+            <h3>Causes listed in the handout</h3>
+            <label><input type="checkbox" class="progress-check" /> Sampling rate is too low for the velocity.</label>
+            <label><input type="checkbox" class="progress-check" /> Sample volume is too deep, lowering PRF and the Nyquist limit.</label>
+            <label><input type="checkbox" class="progress-check" /> High-frequency probes create a stronger Doppler shift and increase the chance of aliasing.</label>
+            <label><input type="checkbox" class="progress-check" /> Aliasing occurs with PW Doppler.</label>
+          </div>
+          <div class="card checklist">
+            <h3>Ways to correct aliasing</h3>
+            <label><input type="checkbox" class="progress-check" /> Increase the scale to increase the Nyquist limit.</label>
+            <label><input type="checkbox" class="progress-check" /> Use a shallower scanning window.</label>
+            <label><input type="checkbox" class="progress-check" /> Switch to a lower-frequency transducer.</label>
+            <label><input type="checkbox" class="progress-check" /> Adjust the baseline for more display room.</label>
+            <label><input type="checkbox" class="progress-check" /> Use CW Doppler when appropriate.</label>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <h3>Try the Nyquist calculation</h3>
+          <label for="prfInput"><strong>Enter PRF or scale value:</strong></label>
+          <input id="prfInput" type="number" min="0" value="100" style="width:100%;margin:10px 0;padding:12px;border:1px solid #cbd5dd;border-radius:12px;" />
+          <button class="primary-btn" id="calculateNyquist">Calculate Nyquist limit</button>
+          <div class="result-box" style="margin-top:14px;" id="nyquistResult" aria-live="polite">100 ÷ 2 = <strong>50</strong></div>
+        </div>
+      </section>
+
+      <section class="panel" id="quiz">
+        <div class="section-heading">
+          <h2>Knowledge Check</h2>
+          <p>Select an answer for each question. Your score updates automatically.</p>
+        </div>
+
+        <div class="card">
+          <div class="quiz-question" data-correct="b">
+            <h3>1. Which angle produces no Doppler shift?</h3>
+            <div class="answers">
+              <button class="answer" data-answer="a">0°</button>
+              <button class="answer" data-answer="b">90°</button>
+              <button class="answer" data-answer="c">180°</button>
+              <button class="answer" data-answer="d">60°</button>
+            </div>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="quiz-question" data-correct="c">
+            <h3>2. Which Doppler mode provides specific velocities such as PSV and EDV?</h3>
+            <div class="answers">
+              <button class="answer" data-answer="a">Power Doppler</button>
+              <button class="answer" data-answer="b">Color Doppler only</button>
+              <button class="answer" data-answer="c">Pulsed Wave Doppler</button>
+              <button class="answer" data-answer="d">B-mode only</button>
+            </div>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="quiz-question" data-correct="d">
+            <h3>3. Which choice increases the Nyquist limit?</h3>
+            <div class="answers">
+              <button class="answer" data-answer="a">Increase depth</button>
+              <button class="answer" data-answer="b">Use a higher-frequency transducer</button>
+              <button class="answer" data-answer="c">Lower the scale</button>
+              <button class="answer" data-answer="d">Increase the scale</button>
+            </div>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="quiz-question" data-correct="a">
+            <h3>4. Which transducer has range ambiguity?</h3>
+            <div class="answers">
+              <button class="answer" data-answer="a">Continuous Wave</button>
+              <button class="answer" data-answer="b">Pulsed Wave</button>
+              <button class="answer" data-answer="c">Color Doppler</button>
+              <button class="answer" data-answer="d">Power Doppler</button>
+            </div>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="result-box" id="scoreBox" aria-live="polite"><strong>Score:</strong> 0 / 4</div>
+          <button class="secondary-btn" id="resetQuiz" style="margin-top:14px;">Reset quiz</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Center for Ultrasound Research and Education &nbsp;|&nbsp; 333 Westchester Avenue, Suite W101, White Plains, NY &nbsp;|&nbsp; cure.edu
+    </footer>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+    const visitedTabs = new Set(['shift']);
+
+    function updateProgress() {
+      const checks = [...document.querySelectorAll('.progress-check')];
+      const checked = checks.filter(c => c.checked).length;
+      const tabPart = visitedTabs.size / tabButtons.length;
+      const checkPart = checks.length ? checked / checks.length : 0;
+      const percent = Math.round((tabPart * 0.65 + checkPart * 0.35) * 100);
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressText').textContent = percent + '%';
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+        visitedTabs.add(btn.dataset.tab);
+        updateProgress();
+        window.scrollTo({ top: document.querySelector('.nav-wrap').offsetTop, behavior: 'smooth' });
+      });
+    });
+
+    const flowContent = {
+      toward: {
+        title: 'Positive Doppler shift',
+        text: 'Blood moving toward the transducer produces an increase in frequency and is typically displayed above the baseline, depending on settings.'
+      },
+      away: {
+        title: 'Negative Doppler shift',
+        text: 'Blood moving away from the transducer produces a decrease in frequency and is typically displayed below the baseline, depending on settings.'
+      },
+      none: {
+        title: 'Zero Doppler shift',
+        text: 'When blood is not moving toward or away from the transducer, there is no Doppler shift.'
+      }
+    };
+
+    document.querySelectorAll('[data-flow]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-flow]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const item = flowContent[btn.dataset.flow];
+        document.getElementById('shiftTitle').textContent = item.title;
+        document.getElementById('shiftExplanation').textContent = item.text;
+      });
+    });
+
+    const angleRange = document.getElementById('angleRange');
+    const beamLine = document.getElementById('beamLine');
+    function updateAngle() {
+      const angle = Number(angleRange.value);
+      const radians = angle * Math.PI / 180;
+      const cosine = Math.cos(radians);
+      const length = 190;
+      const x2 = 250 + length * Math.cos(-radians);
+      const y2 = 255 + length * Math.sin(-radians);
+      beamLine.setAttribute('x2', x2.toFixed(1));
+      beamLine.setAttribute('y2', y2.toFixed(1));
+      document.getElementById('angleNumber').textContent = angle;
+      document.getElementById('angleSvgLabel').textContent = angle + '°';
+      document.getElementById('cosineValue').textContent = cosine.toFixed(2);
+
+      let relative = 'Partial shift';
+      let explanation = `At ${angle}°, the cosine is ${cosine.toFixed(2)}. The detected Doppler shift is a fraction of the maximum shift.`;
+      if (angle === 0) {
+        relative = 'Maximum positive';
+        explanation = 'At 0°, the beam is parallel to flow. Cosine 0° = 1, producing the maximum positive Doppler shift.';
+      } else if (angle === 180) {
+        relative = 'Maximum negative';
+        explanation = 'At 180°, the beam is parallel but flow is in the opposite direction. Cosine 180° = -1, producing the maximum negative Doppler shift.';
+      } else if (angle === 90) {
+        relative = 'No shift';
+        explanation = 'At 90°, the beam is perpendicular to flow. Cosine 90° = 0, so no Doppler shift is detected.';
+      } else if (angle === 60 || angle === 120) {
+        relative = 'Half shift';
+        explanation = `At ${angle}°, the magnitude of the cosine is 0.5, so about half of the true velocity is represented.`;
+      } else if (angle < 90) {
+        relative = 'Positive shift';
+      } else {
+        relative = 'Negative shift';
+      }
+      document.getElementById('relativeShift').textContent = relative;
+      document.getElementById('angleExplanation').textContent = explanation;
+    }
+    angleRange.addEventListener('input', updateAngle);
+    updateAngle();
+
+    document.querySelectorAll('.flashcard').forEach(card => {
+      const flip = () => card.classList.toggle('flipped');
+      card.addEventListener('click', flip);
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+      });
+    });
+
+    document.getElementById('calculateNyquist').addEventListener('click', () => {
+      const value = Number(document.getElementById('prfInput').value);
+      const result = document.getElementById('nyquistResult');
+      if (!Number.isFinite(value) || value < 0) {
+        result.textContent = 'Enter a valid nonnegative number.';
+        return;
+      }
+      result.innerHTML = `${value} ÷ 2 = <strong>${(value / 2).toFixed(1).replace('.0','')}</strong>`;
+    });
+
+    const quizQuestions = [...document.querySelectorAll('.quiz-question')];
+    const answered = new Map();
+    function updateScore() {
+      let score = 0;
+      answered.forEach(v => { if (v) score++; });
+      document.getElementById('scoreBox').innerHTML = `<strong>Score:</strong> ${score} / ${quizQuestions.length}`;
+    }
+
+    quizQuestions.forEach((q, index) => {
+      q.querySelectorAll('.answer').forEach(btn => {
+        btn.addEventListener('click', () => {
+          q.querySelectorAll('.answer').forEach(b => b.classList.remove('correct','incorrect'));
+          const isCorrect = btn.dataset.answer === q.dataset.correct;
+          btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+          const correctBtn = q.querySelector(`[data-answer="${q.dataset.correct}"]`);
+          if (!isCorrect) correctBtn.classList.add('correct');
+          q.querySelector('.quiz-feedback').textContent = isCorrect ? 'Correct.' : 'Not quite. The correct answer is highlighted.';
+          answered.set(index, isCorrect);
+          updateScore();
+        });
+      });
+    });
+
+    document.getElementById('resetQuiz').addEventListener('click', () => {
+      answered.clear();
+      document.querySelectorAll('.answer').forEach(b => b.classList.remove('correct','incorrect'));
+      document.querySelectorAll('.quiz-feedback').forEach(f => f.textContent = '');
+      updateScore();
+    });
+
+    document.querySelectorAll('.progress-check').forEach(c => c.addEventListener('change', updateProgress));
+    updateProgress();
+  </script>
+</body>
+</html>

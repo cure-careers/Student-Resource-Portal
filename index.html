@@ -1,0 +1,1002 @@
+<meta charset="utf-8">
+<title>CURE Student Resource Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: sticky navy masthead with a scrolling tab rail. Student Resources (courses, library, borrowing, physics, Prepry) live in an emerald zone set apart from the rest of the app. Documents open in an in-page reader. */
+/* Palette: light, single theme by design. Default "Yale Blue & Beige"; alternates from Marlin's samples are selectable under Colors. */
+:root{
+  --teal:#4C6A82; --violet:#5E6A8A; --sand:#D8CDB8;
+  --good:#2F7A55; --warn:#9A6B12; --bad:#A94A2A;
+  --display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:12px; color-scheme:light;
+}
+:root{--bg:#EBEBD3; --surface:#F8F8EC; --surface-2:#DEDEC3; --mast:#E1E1C4; --line:#CDCDAE; --fg:#0E2440; --muted:#56594B; --mast-ink:#0E2440; --mast-sub:#56594B;
+  --navy:#003D77; --navy-2:#0B5394; --link:#0B5394; --gold:#F4D35E; --on-gold:#2A2100; --orange:#EE964B; --eyebrow:#A8601F;
+  --lib:#D9442A; --lib-deep:#A8321D; --lib-soft:#FBE6DA; --lib-line:#F0B898; --lib-ink:#6E1E0F}
+:root[data-palette="teal"]{--bg:#E9F3F4; --surface:#F7FBFB; --surface-2:#D3E7EA; --mast:#CDE6EA; --line:#B6D7DC; --fg:#003135; --muted:#3F5B5E; --mast-ink:#003135; --mast-sub:#3F5B5E;
+  --navy:#024950; --navy-2:#0B6A72; --link:#0B6A72; --gold:#0FA4AF; --on-gold:#FFFFFF; --orange:#964734; --eyebrow:#964734;
+  --lib:#964734; --lib-deep:#6E321F; --lib-soft:#F4E5DE; --lib-line:#DDB8A7; --lib-ink:#4F2214}
+:root[data-palette="midnight"]{--bg:#F1F3FA; --surface:#FFFFFF; --surface-2:#E2E6F4; --mast:#DCEAF7; --line:#CBD2EA; --fg:#050D4C; --muted:#4F567A; --mast-ink:#050D4C; --mast-sub:#4F567A;
+  --navy:#050D4C; --navy-2:#1A2380; --link:#1A2380; --gold:#87C6EF; --on-gold:#050D4C; --orange:#6922DD; --eyebrow:#6922DD;
+  --lib:#6922DD; --lib-deep:#4A139F; --lib-soft:#EEE5FB; --lib-line:#CDB7F3; --lib-ink:#2E0B66}
+:root[data-palette="lavender"]{--bg:#E5EAF5; --surface:#F7F9FD; --surface-2:#D6DDEE; --mast:#DAE2F2; --line:#C5CEE3; --fg:#2E3140; --muted:#5A5E70; --mast-ink:#2E3140; --mast-sub:#5A5E70;
+  --navy:#494D5F; --navy-2:#5D6276; --link:#5D6276; --gold:#A0D2EB; --on-gold:#1E2A3B; --orange:#8458B3; --eyebrow:#6B4594;
+  --lib:#8458B3; --lib-deep:#5E3B86; --lib-soft:#EFE8F9; --lib-line:#D0BDF4; --lib-ink:#3D2560}
+:root[data-palette="embers"]{--bg:#F4EEEA; --surface:#FCF9F7; --surface-2:#E9DFD9; --mast:#ECE2DC; --line:#DACBC2; --fg:#2C3A50; --muted:#5E5A66; --mast-ink:#2C3A50; --mast-sub:#5E5A66;
+  --navy:#2C3A50; --navy-2:#41436A; --link:#41436A; --gold:#FE9677; --on-gold:#2C1A10; --orange:#F64668; --eyebrow:#984063;
+  --lib:#984063; --lib-deep:#6E2C47; --lib-soft:#F7E6EC; --lib-line:#E4BCCB; --lib-ink:#4C1D31}
+:root[data-palette="wood"]{--bg:#EFE7DC; --surface:#F9F4EE; --surface-2:#E2D6C6; --mast:#E5D9C9; --line:#D2C1AB; --fg:#3E362E; --muted:#6B5E50; --mast-ink:#3E362E; --mast-sub:#6B5E50;
+  --navy:#3E362E; --navy-2:#5A4E42; --link:#5A4E42; --gold:#AC8968; --on-gold:#2A2018; --orange:#93785B; --eyebrow:#865D36;
+  --lib:#865D36; --lib-deep:#5F4024; --lib-soft:#F2E8DC; --lib-line:#D9C2A6; --lib-ink:#43301C}
+:root[data-palette="electric"]{--bg:#F2F5FD; --surface:#FFFFFF; --surface-2:#E1E8F8; --mast:#FFF9C9; --line:#CCD7F0; --fg:#0A1E4A; --muted:#4D5878; --mast-ink:#0A1E4A; --mast-sub:#4D5878;
+  --navy:#0049B7; --navy-2:#1F5FD0; --link:#1F5FD0; --gold:#FFF685; --on-gold:#1A1A00; --orange:#00B8D9; --eyebrow:#B30F3B;
+  --lib:#E8174E; --lib-deep:#B30F3B; --lib-soft:#FFE4EB; --lib-line:#FFB1C4; --lib-ink:#7A0A26}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+a{color:var(--link)}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:700;letter-spacing:-.005em}
+h3{font-size:1.12rem;font-weight:700}
+p{margin:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--eyebrow);font-weight:700}
+
+.mast{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--mast);color:var(--mast-ink);border-bottom:3px solid var(--gold)}
+.mast-top{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand-mark{width:60px;height:60px;flex:none}
+.brand b{font-family:var(--display);font-size:1.9rem;letter-spacing:.04em;display:block;line-height:1}
+.brand small{font-family:var(--display);font-size:1.12rem;color:var(--mast-ink);letter-spacing:.01em;font-weight:600}
+.mast-actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search{display:flex;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;gap:8px;min-width:0}
+.search input{background:transparent;border:0;color:var(--fg);font:inherit;font-size:.92rem;width:min(230px,44vw);outline:none}
+.search input::placeholder{color:var(--mast-sub)}
+.pill-btn{background:transparent;border:1px solid var(--line);color:var(--mast-ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.pill-btn:hover{border-color:var(--gold)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px;align-items:center}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;color:var(--mast-ink);text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 13px;border-radius:999px;white-space:nowrap}
+.tab:hover{background:color-mix(in srgb,var(--mast-ink) 8%,transparent)}
+.tab[aria-current="page"]{background:var(--navy);color:#fff}
+.tabgroup{display:flex;gap:4px;align-items:center;flex:none;background:color-mix(in srgb,var(--lib) 10%,transparent);border:1.5px solid var(--lib);border-radius:999px;padding:3px 4px 3px 12px}
+.tabgroup>span{font-family:var(--body);font-size:.9rem;font-weight:700;color:var(--lib);white-space:nowrap;padding-right:4px}
+.tabgroup .tab{color:var(--mast-ink)}
+.tabgroup .tab[aria-current="page"]{background:var(--lib);color:#fff}
+
+.stylepanel{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 120px);z-index:40;width:min(340px,calc(100vw - 32px));background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(5,12,31,.28);padding:16px;display:grid;gap:12px;max-height:calc(100vh - 140px);overflow:auto}
+.stylepanel h4{font-size:.95rem}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.sw{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:12px;padding:8px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;text-align:left}
+.sw[aria-pressed="true"],.fontopt[aria-pressed="true"]{border-color:var(--teal);box-shadow:0 0 0 2px color-mix(in srgb,var(--teal) 35%,transparent)}
+.sw i{display:flex;border-radius:6px;overflow:hidden;flex:none}
+.sw i b{width:12px;height:22px;display:block}
+.fontopt{border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:12px;padding:8px 10px;cursor:pointer;text-align:left;display:grid;gap:2px}
+.fontopt strong{font-size:1.05rem}
+.fontopt span{font-size:.8rem;color:var(--muted)}
+
+.hero{background:linear-gradient(180deg,var(--mast) 0%,var(--bg) 100%);color:var(--fg);overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:center;padding-block:36px 44px}
+.hero h1{font-size:clamp(2.2rem,5.2vw,3.7rem);font-weight:700;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--lib)}
+.hero p.lede{font-size:1.12rem;color:var(--muted);max-width:56ch;margin-top:14px}
+.beam{width:100%;max-width:620px;aspect-ratio:1.25/1;justify-self:end}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;gap:8px;align-items:center;border-radius:999px;padding:10px 16px;font-weight:700;font-size:.95rem;text-decoration:none;border:1.5px solid var(--navy);color:var(--navy);background:var(--surface)}
+.chip:hover{background:var(--navy);color:#fff}
+.chip.lib{background:var(--lib);border-color:var(--lib);color:#fff}
+.chip.lib:hover{color:#fff;filter:brightness(1.1)}
+
+/* student resources zone */
+.zone-head{background:linear-gradient(135deg,var(--lib-deep) 0%,var(--lib) 100%);color:#fff}
+.zone-head .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:14px}
+.zone-head b{font-family:var(--display);font-size:1.05rem;letter-spacing:.02em}
+.zone-head span{color:#F3DADF;font-size:.9rem}
+.zone-head svg{flex:none}
+body.zone-lib main{--orange:var(--lib); --teal:var(--lib)}
+body.zone-lib main .eyebrow{color:var(--lib)}
+body.zone-lib main .card{border-color:var(--lib-line)}
+body.zone-lib main a.card:hover{border-color:var(--lib)}
+body.zone-lib main .fbtn[aria-pressed="true"]{background:var(--lib);border-color:var(--lib)}
+body.zone-lib main .btn:not(.ghost):not(.gold){background:var(--lib-deep);border-color:var(--lib-deep)}
+body.zone-lib main .group-title{border-bottom-color:var(--lib-line)}
+body.zone-lib main .tag{background:var(--lib-soft);color:var(--lib-ink)}
+body.zone-lib main .card{background:var(--surface)}
+.libcard{background:var(--lib-soft)!important;border:1.5px solid var(--lib-line)!important}
+.libcard .tag{background:var(--lib)!important;color:#fff!important}
+
+main{padding-block:28px 64px}
+section.view{display:grid;gap:26px}
+.sec-head{display:grid;gap:8px;max-width:72ch}
+.sec-head p{color:var(--muted);font-size:1.03rem}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);box-shadow:0 1px 2px rgba(28,43,69,.05);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card p{color:var(--muted);font-size:.95rem}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+a.card{text-decoration:none;color:inherit;transition:transform .15s ease,border-color .15s ease}
+a.card:hover{transform:translateY(-2px);border-color:var(--teal)}
+.ext{font-size:.8em;color:var(--muted)}
+.tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);font-weight:700;align-self:flex-start}
+.tag.teal,.tag.orange,.tag.violet{background:var(--surface-2);color:var(--muted)}
+.tag.gold{background:color-mix(in srgb,var(--gold) 22%,transparent);color:var(--fg)}
+.band{border-radius:20px;padding:22px;display:grid;gap:12px}
+.band.gold{background:var(--gold);color:var(--on-gold)}
+.band.gold p{color:var(--on-gold)}
+.band.navy{background:var(--navy);color:#fff}
+.band.navy p{color:#D2DDF7}
+.band.navy a:not(.btn){color:var(--gold)}
+.band.lib{background:linear-gradient(135deg,var(--lib-deep),var(--lib));color:#fff}
+.band.lib p{color:#F3DADF}
+.band.lib a:not(.btn){color:#fff}
+.band.line{background:var(--surface);border:1.5px dashed var(--teal)}
+.group-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:8px}
+.group-title h3{font-size:1.25rem}
+.group-title span{color:var(--muted);font-size:.9rem}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 16px;font:inherit;font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer;border:1.5px solid var(--navy-2);background:var(--navy-2);color:#fff}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.btn.white{background:#fff;border-color:#fff;color:var(--lib-deep)}
+.btn.sm{padding:6px 12px;font-size:.82rem}
+.btn:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.stat b{font-family:var(--display);font-size:2rem;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.88rem}
+.stat b{color:var(--navy-2)}.stat:first-child b{color:var(--gold)}
+.note{font-size:.85rem;color:var(--muted)}
+.callout{border-left:4px solid var(--orange);background:var(--surface);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.95rem}
+ul.clean{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.fbtn{border:1.5px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:7px 14px;font:inherit;font-weight:600;font-size:.88rem;cursor:pointer}
+.fbtn[aria-pressed="true"]{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.code{font-family:var(--mono);font-weight:700;font-size:.82rem;color:var(--orange)}
+.hours{font-family:var(--mono);font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.docrow{display:flex;flex-wrap:wrap;gap:6px}
+.person{display:grid;gap:4px}
+.person a{font-weight:600;overflow-wrap:anywhere}
+
+/* books */
+.booktools{display:grid;gap:10px;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.booktools input,.booktools select{font:inherit;padding:10px 12px;border-radius:12px;border:1.5px solid var(--lib-line);background:var(--surface);color:var(--fg);width:100%}
+.booklist{display:grid;gap:8px}
+.book{display:grid;grid-template-columns:3.2ch minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--lib-line);border-radius:12px;padding:12px 14px}
+.book .no{font-family:var(--mono);font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.book b{display:block;font-size:.98rem}
+.book small{color:var(--muted);font-size:.84rem;display:block;overflow-wrap:anywhere}
+.book .act{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.st{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.st.ok{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.st.hold{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.st.out{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.st.mine{background:var(--lib);color:#fff}
+.desk{display:grid;gap:10px}
+.deskrow{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--lib-line);border-radius:12px;padding:12px 14px}
+.deskrow .who{font-size:.88rem;color:var(--muted);overflow-wrap:anywhere}
+.overdue{color:var(--bad);font-weight:700}
+@media (max-width:640px){.book{grid-template-columns:minmax(0,1fr)}.book .no{display:none}.book .act{justify-content:flex-start}.deskrow{grid-template-columns:minmax(0,1fr)}.booktools{grid-template-columns:minmax(0,1fr)}}
+
+.calc{display:grid;gap:10px}
+.calc label{font-size:.85rem;color:var(--muted);display:grid;gap:4px;min-width:0}
+.calc input,.form input,.form select,.form textarea{font:inherit;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+.calc .out{font-family:var(--mono);font-size:1rem;font-weight:700;background:color-mix(in srgb,var(--teal) 14%,transparent);padding:10px 12px;border-radius:10px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.formula{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.topic{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
+.topic .n{font-family:var(--mono);font-weight:700;color:#fff;background:var(--lib-deep);border-radius:8px;padding:4px 8px;font-size:.8rem}
+.quiz-q{display:grid;gap:8px}
+.quiz-q .opts{display:grid;gap:6px}
+.opt{text-align:left;font:inherit;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:9px 12px;cursor:pointer}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.why{font-size:.9rem;color:var(--muted)}
+.path-steps{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start}
+.step .dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;background:var(--teal);color:#fff}
+.step.opt .dot{background:var(--surface-2);color:var(--muted);border:2px dashed var(--line)}
+.form{display:grid;gap:12px}
+.form label{display:grid;gap:5px;font-weight:600;font-size:.9rem}
+.form .two{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.copybox{font-family:var(--mono);font-size:.82rem;white-space:pre-wrap;background:var(--surface-2);border-radius:10px;padding:12px;user-select:all;overflow-wrap:anywhere}
+
+.reader{position:fixed;inset:0;z-index:60;background:rgba(5,10,25,.84);display:grid;grid-template-rows:auto minmax(0,1fr);padding-top:env(safe-area-inset-top,0px)}
+.reader-bar{background:var(--lib-deep);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 16px;flex-wrap:wrap;box-shadow:0 3px 0 var(--lib)}
+.reader-bar b{font-family:var(--display);font-size:1rem;flex:1 1 200px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reader-bar .pg{font-family:var(--mono);font-size:.85rem;color:#F3DADF;font-variant-numeric:tabular-nums}
+.reader-body{overflow:auto;padding:18px 16px 40px;display:flex;flex-direction:column;align-items:center;gap:14px;-webkit-user-select:none;user-select:none}
+.reader-body canvas{max-width:100%;height:auto;background:#fff;box-shadow:0 6px 24px rgba(0,0,0,.35);border-radius:4px}
+.reader-msg{color:#fff;padding:30px;text-align:center}
+
+footer{background:var(--navy);color:#C8D5F5;padding-block:28px;font-size:.88rem}
+footer a{color:var(--gold)}
+.foot{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+@media (max-width:820px){.hero-in{grid-template-columns:1fr}.beam{justify-self:center;max-width:460px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+
+/* ===== CURE logo system: ivory ground, logo navy, sky blue, wave orange, salmon. Traditional serif. ===== */
+:root{
+  --bg:#FBF8F3; --surface:#FFFFFF; --surface-2:#F3EDE4; --mast:#FFFFFF; --line:#E9DCCB; --fg:#133D55; --muted:#5B6670; --mast-ink:#133D55; --mast-sub:#5B6670;
+  --navy:#133D55; --navy-2:#1D5A7A; --link:#1A6EA6; --gold:#E0532A; --on-gold:#FFFFFF; --orange:#E0532A; --eyebrow:#C9461F; --salmon:#EBA28A; --sky:#2196D3;
+  --lib:#1A78B5; --lib-deep:#135A8A; --lib-soft:#E8F3FB; --lib-line:#BBDAEF; --lib-ink:#0E3F61;
+  --display:"Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", P052, "EB Garamond", Georgia, serif;
+  --body:"Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", P052, "EB Garamond", Georgia, serif;
+}
+body{font-size:16.5px}
+h1,h2,h3{font-weight:700;letter-spacing:0}
+.mast{background:#fff;border-bottom:0;box-shadow:0 2px 10px rgba(19,61,85,.08)}
+.mast-top{padding-block:14px}
+.brand{gap:18px;align-items:center}
+.logo{height:64px;width:auto;display:block}
+.portal-name{font-family:var(--display);font-size:1.15rem;color:var(--orange);border-left:2px solid var(--line);padding-left:16px;font-style:italic;white-space:nowrap}
+@media (max-width:720px){.logo{height:44px}.portal-name{display:none}}
+.navstrip{background:var(--navy);border-top:3px solid var(--orange)}
+.navstrip .tabs{padding-block:8px}
+.tab{color:#fff;font-family:var(--body);font-size:.98rem;font-weight:600;border-radius:4px}
+.tab:hover{background:rgba(255,255,255,.12)}
+.tab[aria-current="page"]{background:var(--orange);color:#fff}
+.tabgroup{background:rgba(255,255,255,.06);border:1.5px solid var(--sky);border-radius:6px;padding:2px 4px 2px 10px}
+.tabgroup>span{color:#9FD3F2;font-family:var(--body);font-size:.98rem;font-weight:700}
+.tabgroup .tab{color:#fff}
+.tabgroup .tab[aria-current="page"]{background:var(--sky);color:#fff}
+.search{background:var(--bg)}
+.hero{background:linear-gradient(180deg,#FFFFFF 0%,var(--bg) 100%);border-bottom:1px solid var(--line)}
+.hero-in{grid-template-columns:minmax(0,1.7fr) minmax(0,.75fr);gap:36px;padding-block:40px 44px}
+.hero h1{font-size:clamp(2rem,4.4vw,3.1rem);color:var(--navy);border-left:4px solid var(--orange);padding-left:18px;font-weight:700}
+.hero p.lede{color:var(--muted);padding-left:22px}
+.hero .eyebrow{padding-left:22px;display:block;margin-bottom:8px}
+.hero p[style]{padding-left:22px;color:var(--navy)}
+.quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;padding-left:22px}
+.q{display:inline-flex;align-items:center;padding:11px 18px;border-radius:4px;font-weight:700;font-size:.92rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#fff}
+.q:hover{filter:brightness(1.08)}
+.q1{background:var(--orange)}.q2{background:var(--lib)}.q3{background:var(--salmon);color:#5A2414}.q4{background:var(--navy)}
+.scan{margin:0;justify-self:end;width:100%;max-width:300px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 8px 24px rgba(19,61,85,.10)}
+.scan .beam{max-width:100%;justify-self:auto;display:block}
+.scan figcaption{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:6px}
+@media (max-width:820px){.scan{justify-self:start;max-width:240px}}
+.card{border-color:#F0CDBF;box-shadow:none}
+a.card:hover{border-color:var(--orange)}
+.band.navy{background:var(--navy)}
+.band.gold{background:#FBE3D8;color:var(--navy)}
+.band.gold p{color:var(--navy)}
+.tag.gold{background:#FBE3D8;color:#8E2F14}
+.zone-head{background:linear-gradient(90deg,var(--lib-deep),var(--lib))}
+body.zone-lib main .card{border-color:var(--lib-line)}
+.eyebrow{font-family:var(--mono)}
+footer{background:var(--navy)}
+footer a{color:var(--salmon)}
+
+/* ===== v9 ===== */
+:root[data-font="garamond"]{--display:"EB Garamond",Georgia,serif;--body:"EB Garamond",Georgia,serif}
+:root[data-font="cormorant"]{--display:"Cormorant Garamond",Georgia,serif;--body:"EB Garamond",Georgia,serif}
+:root[data-font="baskerville"]{--display:"Libre Baskerville",Georgia,serif;--body:"Libre Baskerville",Georgia,serif}
+:root[data-font="lora"]{--display:"Lora",Georgia,serif;--body:"Lora",Georgia,serif}
+:root[data-font="crimson"]{--display:"Crimson Pro",Georgia,serif;--body:"Crimson Pro",Georgia,serif}
+:root[data-font="merriweather"]{--display:"Merriweather",Georgia,serif;--body:"Merriweather",Georgia,serif}
+:root[data-font="playfair"]{--display:"Playfair Display",Georgia,serif;--body:"Source Sans 3","Segoe UI",system-ui,sans-serif}
+:root[data-font="garamond"] body,:root[data-font="crimson"] body,:root[data-font="cormorant"] body{font-size:18px}
+.portal-name{font-size:clamp(1.3rem,2.2vw,1.85rem);font-weight:700;color:var(--navy);font-style:normal;border-left:3px solid var(--orange);padding-left:18px}
+.hero{background:radial-gradient(120% 140% at 85% 10%,#1D5A7A 0%,var(--navy) 60%);color:#fff;border-bottom:4px solid var(--orange)}
+.hero h1{color:#fff}
+.hero .eyebrow{color:var(--salmon)}
+.hero p.lede{color:#D6E4EE}
+.tagline{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;color:#fff;margin-top:10px;padding-left:22px;line-height:1.2}
+.tagline em{color:var(--salmon);font-style:italic}
+.q2{background:var(--sky)}.q3{background:var(--salmon);color:#4A1C0F}.q4{background:transparent;border:2px solid #fff;color:#fff}
+.scan{background:transparent;border:0;box-shadow:none;padding:0;max-width:340px}
+.scan figcaption{color:#BFD3E2}
+.band.sky{background:linear-gradient(135deg,#135A8A,var(--sky));color:#fff}
+.band.sky p{color:#E3F2FB}
+.band.sky .btn{background:#fff;border-color:#fff;color:var(--navy)}
+.band.sky .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.mainline{font-weight:800;font-size:1.15rem;color:var(--navy)}
+.group-title .mainline{font-size:1.2rem;color:var(--orange)}
+footer .mainline{font-size:1.15rem}
+
+/* ===== v10: sans type, vivid navy ===== */
+:root{
+  --display:"Franklin Gothic Medium","Franklin Gothic","ITC Franklin Gothic","Libre Franklin","Segoe UI",Arial,sans-serif;
+  --body:Calibri,Carlito,"Segoe UI",Candara,Arial,sans-serif;
+  --vivid:#0B4F9C; --vivid-2:#1570C9;
+}
+:root[data-font="calibri"]{--display:Calibri,Carlito,"Segoe UI",Arial,sans-serif;--body:Calibri,Carlito,"Segoe UI",Arial,sans-serif}
+:root[data-font="franklinall"]{--display:"Franklin Gothic Medium","Libre Franklin",Arial,sans-serif;--body:"Franklin Gothic Book","Libre Franklin",Arial,sans-serif}
+:root[data-font="aptos"]{--display:"Aptos Display",Aptos,Figtree,"Segoe UI",sans-serif;--body:Aptos,Figtree,"Segoe UI",sans-serif}
+:root[data-font="source"]{--display:"Source Sans 3","Segoe UI",sans-serif;--body:"Source Sans 3","Segoe UI",sans-serif}
+body{font-size:17px}
+h1,h2,h3{font-weight:700;letter-spacing:-.005em}
+.tagline{font-weight:800}
+.person .phone{font-weight:700;color:var(--navy)}
+.person .note{color:var(--muted)}
+.q1{background:var(--orange);color:#fff}
+
+/* ===== v12 ===== */
+#view-home .band.lib{background:var(--navy)}
+#view-home .band.lib .btn.white{text-transform:uppercase;letter-spacing:.06em;font-size:.84rem;color:var(--navy)}
+.person .tag,.person .tag.teal,.person .tag.orange,.person .tag.violet,.person .tag.gold{background:transparent;color:var(--orange);padding:0;font-size:.8rem;letter-spacing:.08em}
+
+.hero h1 .welcome{display:block;font-size:clamp(3rem,7.5vw,5.4rem);line-height:1;font-weight:800;letter-spacing:-.01em}
+.hero h1 .welcome-sub{display:block;font-size:clamp(1.4rem,2.8vw,2rem);font-weight:600;margin-top:6px;color:#D6E4EE}
+
+.person .tag,.person .tag.teal,.person .tag.orange,.person .tag.violet,.person .tag.gold{background:var(--orange);color:#fff;padding:4px 10px;border-radius:4px;font-size:.78rem;letter-spacing:.08em}
+
+#view-home .sec-head .eyebrow{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.6rem);letter-spacing:0;text-transform:none;font-weight:800;color:var(--orange);line-height:1}
+
+.forsites{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:0;text-transform:none;font-weight:800;color:var(--orange);line-height:1.05}
+
+.person .note{font-size:1rem;font-weight:600;color:var(--navy-2)}
+
+.pageview{position:fixed;inset:0;z-index:65;background:var(--bg);display:grid;grid-template-rows:auto minmax(0,1fr);padding-top:env(safe-area-inset-top,0px)}
+.pageview iframe{width:100%;height:100%;border:0;background:#fff}
+
+.alert{color:#fff;border-bottom:3px solid rgba(0,0,0,.15)}
+.alert .wrap{display:flex;gap:14px;align-items:flex-start;padding-block:12px}
+.alert b{font-size:1.1rem;display:block}.alert p{margin:2px 0 0;font-size:1rem;color:#fff}.alert small{opacity:.85}
+.alert-tag{flex:none;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem;background:rgba(255,255,255,.2);border:1.5px solid #fff;border-radius:4px;padding:4px 10px;margin-top:2px}
+.a-closure{background:#B3261E}.a-delay{background:#B8620A}.a-info{background:var(--navy)}
+.evlist{display:grid;gap:8px}
+#calList .group-title{margin:22px 0 10px}
+.ev{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.ev-date{text-align:center;border-right:2px solid var(--orange);padding-right:10px;line-height:1.1}
+.ev-date b{display:block;font-family:var(--display);font-size:1.5rem;color:var(--navy)}.ev-date span{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.ev h4{font-size:1rem;margin:0}
+.kpill{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border-radius:4px;white-space:nowrap}
+.k-closed{background:#B3261E;color:#fff}.k-noclass{background:#FBE3D8;color:#8E2F14}.k-resume{background:#E3F0E8;color:#1F5C3A}.k-event{background:var(--navy);color:#fff}.k-aware{background:#E8F3FB;color:#0E3F61}
+.evlist.compact .ev{padding:8px 10px}
+@media (max-width:640px){.ev{grid-template-columns:48px minmax(0,1fr)}.kpill{grid-column:2;justify-self:start}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top">
+      <a class="brand" href="#home" aria-label="The CURE Center, Student Resource Portal home">
+        <img src="files/cure-logo.jpg" alt="The CURE Center for Ultrasound Research &amp; Education" class="logo">
+        <span class="portal-name">Student Resource Portal</span>
+      </a>
+      <div class="mast-actions">
+        <label class="search" for="q"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" style="color:var(--mast-sub)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search courses, books, resources" autocomplete="off"></label>
+        <button class="pill-btn" id="styleBtn" type="button" aria-expanded="false" hidden>Fonts</button>
+        
+      </div>
+    </div>
+  </div>
+  <div class="navstrip"><div class="wrap"><nav class="tabs" id="tabs" aria-label="Portal sections"></nav></div></div>
+</header>
+
+<div class="stylepanel" id="stylePanel" hidden>
+  <div class="row" style="justify-content:space-between"><h4>Try a typeface</h4><button class="btn ghost sm" type="button" id="styleClose">Done</button></div>
+  <div class="swatches" id="palettes" hidden></div>
+  <div style="display:grid;gap:8px" id="fonts"></div>
+  <p class="note">Your choice is saved on this device. Tell Claude which one to make the default.</p>
+</div>
+
+<div id="alertSlot" aria-live="assertive"></div>
+<div id="heroSlot"></div>
+<main class="wrap" id="main"></main>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+  <div class="reader-bar">
+    <b id="readerTitle">Document</b>
+    <span class="pg" id="readerPg"></span>
+    <button class="pill-btn" type="button" id="zoomOut" aria-label="Zoom out">−</button>
+    <button class="pill-btn" type="button" id="zoomIn" aria-label="Zoom in">+</button>
+    <button class="btn white sm" type="button" id="readerClose">Close</button>
+  </div>
+  <div class="reader-body" id="readerBody"></div>
+</div>
+
+<div class="pageview" id="pageview" hidden role="dialog" aria-modal="true" aria-labelledby="pvTitle">
+  <div class="reader-bar"><b id="pvTitle">Physics Review</b><button class="btn white sm" type="button" id="pvClose">Close</button></div>
+  <iframe id="pvFrame" title="Physics Review" src="about:blank"></iframe>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div><b style="color:#fff;font-family:var(--display);font-size:1.1rem">Center for Ultrasound Research and Education</b><p>333 Westchester Avenue, Suite W101<br>White Plains, NY 10604</p></div>
+    <div><p class="mainline" style="color:#fff">Main line (914) 448‑2873</p><p><a href="mailto:admissions@cure.edu" style="font-weight:700;font-size:1.05rem">admissions@cure.edu</a></p><p><a href="https://www.cure.edu" target="_blank" rel="noopener" style="font-weight:700;font-size:1.05rem">www.cure.edu</a></p></div>
+    <div><p>Licensed by the New York State Education Department. Institutionally accredited by ABHES.</p><p class="note" style="color:#AFC0E6">Course documents are for enrolled students and may not be copied or redistributed. Resource list last reviewed October 2026.</p></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+(function(){
+"use strict";
+const YT=(q)=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+const PMC=(q)=>"https://www.ncbi.nlm.nih.gov/pmc/?term="+encodeURIComponent(q);
+const RAD=(q)=>"https://radiopaedia.org/search?lang=us&scope=cases&q="+encodeURIComponent(q);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc=(s)=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mail=(e)=>`<a href="mailto:${e}">${e}</a>`;
+
+/* ---------- SETTINGS (confirm with the Registrar) ---------- */
+const LOAN_DAYS=7, MAX_ACTIVE=2;
+
+/* ---------- DATA ---------- */
+const STUDENT_TABS=[["courses","Courses"],["library","Learning Library"],["books","Borrow Books"],["physics","Physics Review"],["prepry","Prepry"]];
+const TOP_TABS=[];
+const OTHER_TABS=[["calendar","Calendar"],["clinical","Clinical"],["protocols","Protocols"],["careers","Careers"],["credentialing","My Registry Pathway"],["refer","Refer a Friend"]];
+const ZONE=new Set(STUDENT_TABS.map(t=>t[0]));
+
+const PEOPLE=[
+ ["Program Director","Siham Wadiri, MHA, RDMS, RVT","siham@cure.edu","(914) 448‑2873 ext. 104","teal",""],
+ ["Externship Support","Leigh DeWitt, RCS","leigh@cure.edu","(845) 467‑7217","orange",""],
+ ["Career Services Manager","Sarah Allende","sarah@cure.edu","(914) 448‑2873 ext. 120","violet",""],
+ ["Career Services Liaison","Amanda Murasso","amanda@cure.edu","(917) 436‑2939","violet",""],
+ ["Campus Registrar","Desirae Ross","desirae@cure.edu","(914) 448‑2873 ext. 108","gold","Library pickup and returns"],
+ ["Associate Registrar","Carolina Bracho","carolina@cure.edu","(914) 448‑2873 ext. 110","gold","Library pickup and returns"],
+ ["Director of Admissions","Aldwyn Cook","aldwyn@cure.edu","(914) 448‑2873 ext. 102","teal",""],
+ ["Admissions Representative","Nicholas Mercado","nicholas@cure.edu","(914) 448‑2873 ext. 103","teal",""]
+];
+
+const COURSES=[
+ [1,"COM 100","English Communication",20,0,0,"Listening, verbal and nonverbal communication, and group dynamics for academic and professional settings."],
+ [1,"MAT 100","General Math",24,0,0,"Math foundations for sonography, including the metric system used in diagnostic ultrasound."],
+ [1,"PAT 100","Patient Care & Professionalism",16,8,0,"Vital signs, patient assessment, infection control, sterile technique, ergonomics and care of patients with special needs."],
+ [1,"LAW 100","Medical Law and Ethics in Allied Health",16,0,0,"Legal requirements for practice and how medical professionals make ethical decisions."],
+ [1,"MED 100","Medical Terminology",16,0,0,"Medical word building and terminology specific to each area of ultrasound."],
+ [1,"BIO 100","Introduction to Anatomy & Physiology",16,0,0,"Body systems and the sectional planes used in scanning: long axis, transverse, coronal and oblique."],
+ [1,"DMS 100","Ultrasound Physics & Instrumentation",96,24,0,"Sound physics, transducers, instrumentation, Doppler, artifacts and bioeffects. A grade of C or better makes you eligible to sit for the ARDMS SPI exam."],
+ [1,"DMS 101","Introduction to Ultrasound Imaging",4,20,0,"Foundations of clinical sonography, scan planes, image orientation, knobology and first hands on scanning."],
+ [1,"DMS 200","Abdominal Aorta & IVC / Greater Vessels",20,20,0,"Sonographic anatomy, measurement and pathology of the aorta, IVC and their branches."],
+ [2,"DMS 201","Peritoneum / Retroperitoneum",12,28,0,"Peritoneal and retroperitoneal spaces, their contents and the scanning techniques used to evaluate them."],
+ [2,"DMS 202","Liver",16,32,0,"Hepatic anatomy, vasculature, laboratory values, diffuse and focal disease, and contrast enhanced ultrasound."],
+ [2,"DMS 203","Gallbladder & Biliary System",16,32,0,"Gallbladder and bile duct anatomy, patient positioning, measurements and biliary pathology."],
+ [2,"DMS 204","Spleen",12,12,0,"Splenic anatomy, size and volume, variants and pathology."],
+ [2,"DMS 205","Pancreas",16,32,0,"Pancreatic anatomy and landmarks, laboratory tests, pancreatitis, masses and transplant evaluation."],
+ [2,"DMS 206","Gastrointestinal",8,16,0,"Gastrointestinal tract anatomy and function, sonographic signs of bowel disease and the appendix."],
+ [2,"DMS 207","Urinary / Kidney",16,32,0,"Kidneys, ureters and bladder: anatomy, physiology, congenital anomalies and urinary pathology."],
+ [2,"PED 100","Introduction to Pediatric Ultrasound",8,12,0,"Pediatric patient care and common pediatric abdominal and neonatal examinations."],
+ [3,"DMS 300","Breast",24,32,0,"Breast anatomy, the BI‑RADS lexicon, benign and malignant findings and correlation with mammography."],
+ [3,"DMS 301","Thyroid and Parathyroid",24,32,0,"Neck anatomy, thyroid nodule characterization and parathyroid evaluation."],
+ [3,"DMS 302","Scrotum",8,8,0,"Testicular and scrotal anatomy, Doppler evaluation, torsion and masses."],
+ [3,"DMS 303","Prostate",4,8,0,"Prostate anatomy, transabdominal and endocavitary approaches and common pathology."],
+ [3,"DMS 304","Female Pelvis",24,48,0,"Uterus, ovaries and adnexa, the menstrual cycle and gynecologic pathology."],
+ [3,"DMS 305","Obstetrics",32,40,0,"The role of sonography in obstetrics, fetal biometry, anatomy survey, complications and clinical ethics."],
+ [3,"PED 200","Introduction to Fetal Echocardiography",8,8,0,"Fetal cardiac anatomy, standard views and recognition of common congenital heart defects."],
+ [4,"MSK 100","Introduction to Musculoskeletal",8,12,0,"Tendons, ligaments, muscles and joints, with basic musculoskeletal protocols."],
+ [4,"DMS 400","Introduction to Vascular Sonography",16,16,0,"Hemodynamics, Doppler principles and vascular laboratory procedures."],
+ [4,"DMS 401","Extracranial Cerebrovascular",24,36,0,"Carotid and vertebral duplex imaging, velocity criteria and plaque characterization."],
+ [4,"DMS 402","Intracranial Cerebrovascular",24,36,0,"Transcranial Doppler windows, vessel identification and intracranial hemodynamics."],
+ [4,"DMS 403","Peripheral Arterial",16,28,0,"Lower and upper extremity arterial duplex, physiologic testing and ankle brachial index."],
+ [4,"DMS 404","Peripheral Venous",16,28,0,"Venous duplex for DVT, venous insufficiency and vein mapping."],
+ [4,"DMS 405","Visceral Vascular",16,24,0,"Mesenteric, renal and hepatic vasculature and transplant Doppler."],
+ [5,"DMS 500","Adult Echocardiography",116,176,0,"Cardiac anatomy and physiology, standard echo views, M mode, Doppler, measurements and valvular disease."],
+ [5,"PED 300","Introduction to Pediatric Cardiography",4,0,0,"Pediatric cardiac anatomy and congenital heart disease."],
+ [5,"ICD 100","Introduction to Career Development",4,0,0,"Resume and cover letter, professional social media, interview preparation and labor market resources."],
+ [6,"CLE 100","Clinical Externship (Quarters 6, 7 and 8)",0,0,900,"900 clock hours at an affiliated clinical site matched to your registry pathway, completed as three 300 hour quarters."]
+];
+const SLIDES={
+ "PAT 100":[["Ergonomics and Musculoskeletal Issues in Sonography","files/slides/ch03-ergonomics.pdf"]],
+ "DMS 101":[["Foundations of Clinical Sonography","files/slides/ch01-foundations.pdf"]],
+ "DMS 202":[["Abdominal Applications of Ultrasound Contrast Agents","files/slides/ch17-contrast.pdf"]],
+ "DMS 305":[["The Role of Sonography in Obstetrics","files/slides/ch47-obstetrics.pdf"],["Clinical Ethics for Obstetric Sonography","files/slides/ch48-ob-ethics.pdf"]]
+};
+const syl=(code)=>"files/syllabi/"+code.replace(" ","")+".pdf";
+
+/* CURE scanning protocols: [group, title, courses, file or Drive link, pages] */
+const PG="files/protocols/", GD=(id)=>"https://drive.google.com/file/d/"+id+"/view";
+const PROTOCOLS=[
+ ["Abdomen","General Abdominal Ultrasound",["DMS 101","DMS 201","DMS 206"],PG+"general-abdominal.pdf",47],
+ ["Abdomen","Abdominal Aorta and IVC",["DMS 200"],PG+"aorta-ivc.pdf",24],
+ ["Abdomen","Liver",["DMS 202"],PG+"liver.pdf",12],
+ ["Abdomen","Gallbladder and Biliary Tree",["DMS 203"],PG+"gallbladder-biliary.pdf",6],
+ ["Abdomen","Spleen",["DMS 204"],PG+"spleen.pdf",3],
+ ["Abdomen","Pancreas",["DMS 205"],PG+"pancreas.pdf",7],
+ ["Abdomen","Kidney",["DMS 207"],PG+"kidney.pdf",10],
+ ["Abdomen","Kidney Doppler (detailed)",["DMS 207","DMS 405"],PG+"kidney-doppler.pdf",10],
+ ["Small Parts","Thyroid",["DMS 301"],PG+"thyroid.pdf",18],
+ ["Small Parts","Testicular",["DMS 302"],PG+"testicular.pdf",19],
+ ["Small Parts","Prostate and Bladder",["DMS 303"],PG+"prostate-bladder.pdf",16],
+ ["OB/GYN","Female Pelvis",["DMS 304"],PG+"female-pelvis.pdf",22],
+ ["OB/GYN","First Trimester Obstetrics",["DMS 305"],PG+"ob-first-trimester.pdf",12],
+ ["Vascular","Carotid Duplex",["DMS 401"],PG+"carotid-duplex.pdf",11],
+ ["Vascular","Lower Extremity Arterial",["DMS 403"],PG+"lower-extremity-arterial.pdf",12],
+ ["Vascular","Upper Extremity Arterial",["DMS 403"],PG+"upper-extremity-arterial.pdf",10],
+ ["Vascular","Lower Extremity Venous",["DMS 404"],PG+"lower-extremity-venous.pdf",13],
+ ["Vascular","Upper Extremity Venous Duplex",["DMS 404"],PG+"upper-extremity-venous.pdf",10],
+ ["Echo","Adult Echocardiography",["DMS 500"],PG+"adult-echo.pdf",33]
+];
+const PROTO_PENDING=[["DMS 300","Breast"],["DMS 305","Obstetrics beyond the first trimester"],["PED 100","Pediatric"],["PED 200","Fetal Echocardiography"],["MSK 100","Musculoskeletal"],["DMS 400","Introduction to Vascular"],["DMS 402","Intracranial Cerebrovascular"],["PED 300","Pediatric Echocardiography"]];
+const protoFor=(code)=>PROTOCOLS.filter(p=>p[2].includes(code));
+const protoBtn=(p,label,cls)=>!p[3]?"":p[3].startsWith("http")?`<a class="btn ${cls||"ghost"} sm" href="${esc(p[3])}" target="_blank" rel="noopener">${esc(label)} ↗</a>`:docBtn(label,p[3],"CURE "+p[1]+" Protocol",cls);
+
+const BOOKS=[[1,"Communicate!","Kathleen S. Verderber, Rudolph F. Verderber, Deanna D. Sellnow","2014","987-0-8400-2816-7"],[2,"Algebra Fundamentals for Ultrasound Techs: A Student's Guide","Y.S. Eastwood","2013","978-1475976106"],[3,"Essentials of Sonography and Patient Care, 4th ED","M. Robert De Jong, Marveen Craig","2018","9781437735451"],[4,"Essentials of Sonography and Patient Care, 2nd ED","Marveen Craig","2006","9781416001706"],[5,"Ethical and Legal Issues for Imaging Professionals, 2nd Edition","Doreen M,Towsley-Cook M, Towsley-Cook MAE RT® FEARS, Terese A. Young JD RT® CNTMT","2007","978-0323045995"],[6,"Medical Ethics and Law the core curriculum, 2nd Edition","Tony Hope, Julian Savulescu, and Judith Hendrick","2008","9780443103377"],[7,"Anatomy & Physiology Essentials","Susan J. Hall, Michelle A. Provost-Craig, William C. Rose","2018","978-1-63563-574-4"],[8,"Textbook of Diagnostic Sonography, 8th Edition (2 Volume Set)","Sandra L. Hagen-Ansert, MS, RDMS, RDCS, FASE, FSDMS","2017","978-0323353755"],[9,"Workbook for Diagnostic Sonography, 8th Edition","Sandra L. Hagen-Ansert, MS, RDMS, RDCS, FASE, FSDMS","2017","978-0323441834"],[10,"Understanding Ultrasound Physics","Sidney K. Edelman","2012","0-9626444-5-5"],[11,"Fundamentals of Musculoskeletal Ultrasound","Jon A. Jacobson, 2nd Ed","2012","978-14557-38182"],[12,"The Vascular System, 2nd Edition","Ann Marie Kupinski, PhD,RVT, RDMS, FSVU","2012","978-1496380593"],[13,"ASE Comprehensive Echocardiography, 2nd Ed.","Lang Goldstein","2015","978-0323260114"],[14,"Feigenbaum’s Echocardiography, 8 ed","William F. Armstrong, Thomas Ryan, M.D","2018","978-1451194272"],[15,"Career Development Interventions In The 21st Century, Niles, S. G., & Harris-Bowlsbey, J. Edition: 4","Spencer G. Niles, JoAnn E Harris-Bowlsbey","2012","978-0133012804"],[16,"Abdominal Sonography Review","Cindy A. Owen, RVT, RDMS, FSDMS Edward G. Grant, MD","2019","9780941022460"],[17,"Ultrasound Physics Review","Cindy A. Owen, RVT, RDMS, FSDMS James A. Zagzebski, PhD","2019","9780941022743"],[18,"Vascular Technology Review","Donald P. Ridgway, RVT Barton A. Bean, RVT, FSVU Cindy A. Owen, RVT, RDMS, FSDMS D.E. Strandness, Jr., MD","2019","9780941022194"],[19,"Adult Echo Review","Carol Mitchell, PhD, RDMS, RDCS, RVT, RT(R), ACS, FASE, FSDMS Bridgett Willey, MS, RDMS, RVT, RDCS, RT®","2018","9780941022811"],[20,"Ob/Gyn Sonography Review","Kathryn A. Gill, MS, RT, RDMS, FSDMS Jim Baun, BS, RDMS, RVT, FSDMS Traci B. Fox, EdD, RT(R), RDMS, RVT","2018","9780941022262"],[21,"Breast Sonography Review","Kathryn A. Gill, MS, RT, RDMS, FSDMS","2019","9780941022750"],[22,"Fetal Echo Review","Nikki C. Stahl, RT(R)(M)(CT), RDMS, RVT Valrie Kunes, BA, AS(R) Bradley W. Robinson, MD, FACC","2020","9780941022958"],[23,"Musculoskeletal Sonography Review","Susan Raatz Stephenson, MS, MA Ed, RDMS, RVT, CIIP Nirvikar (Nirvi) Dahiya, MD, FAIUM, FSRU","2019","9780941022675"],[24,"Pocket Protocols for Sonography Scanning","Betty Bates Tempkin","2015","978-1455773220"],[25,"Pediatric Sonography Review","Julie Plaugher, RDMS (AB)(OB/GYN)(PS) Marielis Marrero Maldonado, RDMS (AB)(OB/GYN)(PS) Lennard D. Greenbaum, MD John Blake Campbell, MD","2020","9780941022606"],[26,"Atlas of Human Anatomy 4th Edition","Frank H. Netter, MD","2006","978-1416033851"],[27,"Rapid Review A Guide for Self-Testing and Memorization 2nd Edition","Lippincott Williams and Wilkins","2005","9781587799310"],[28,"Anatomy & Physiology Workbook for Dummies","Jane Rae DuPree and Pat DuPree","2007","978-0470169322"],[29,"How to Survive and Maybe Even Love Health Professions School","F.A. Davis Company","2011","978-0803623651"],[30,"Grant's Atlas of Anatomy 12th Edition","Anne M.R. Agur and Arthur F. Dalley","2009","978-0781770552"],[31,"Clinical Oriented Anatomy 5th Edition","Keith L. Moore and Arthur F. Dalley","2006","978-0781736398"],[32,"Clinical Oriented Anatomy 6th Edition","Keith L. Moore, Arthur F. Dalley and Anne M.R. Agur","2009","978-0781775250"],[33,"Color Atlas of Anatomy: A Photographic Study of the Human Body 6th Edition","Johannes W. Rohen, Chihiro Yokochi, and Elke Lutijen","2006","978-0781793803"],[34,"Mosby's Dictionary of Medicine, Nursing and Health Professions 7th Edition","Mosby Elsevier","2006","978-0323035620"],[35,"Medical Ethics: Accounts of the Cases That Shaped and Define Medical Ethics 5th Edition","Gregory E. Pence","2008","9780073535739"],[36,"Quick Medical Terminology 4th Edition","Shirley Soltesz Steiner","2003","978-0471233596"],[37,"Medical Terminology 4th Edition","Davi-Ellen Chabner","2005","978-1416001652"],[38,"Medical Terminology for Health Professions 3rd Edition","Ann Ehrlich","1997","978-0827378391"],[39,"Dictionary of Medical Terms 5th Edition","Mikel A. Rothenberg and Charles F. Chapman","2006","978-0764134630"],[40,"Medical Terminology for Health Professions 6th Edition","Ann Ehrlich and Carol Schroeder","2009","978-1418072520"],[41,"Understanding the Human Body - An Introduction to Anatomy and Physiology","Anthony A. Goodman","2004","9781565855663"],[42,"Rapid Interpretation of EKGs - Revised and Updated 4th Edition","Dale Dubin","1989","9780912912011"],[43,"The Pocket Guide to Stress Echocardiography","Jodu Gustafson, Rosemary Totty, Andrew Horning","1994","9780470674444"],[44,"Exercise Echocardiography - A book and videotape","Linda J. Crouse, Paul H. Kramer","1992","978-0879935207"],[45,"Understanding EKGs A Practical Approach","Brenda M. Beasley","2014","978-0133147728"],[46,"Essentials of Ultrasound Physics","James A. Zagzebski","1996","978-0815198529"],[47,"Ultrasound Physics and Instrumentation Fourth Edition","Hedrick, Hykes, Starhman","2005","978-1933250083"],[48,"Advanced Cardiac Life Support","American Heart Association","1997","9780874936179"],[49,"Cardiovascular Disease in the Elderly - Third Edition","Franz H. Messerli","1993","978-0-7923-1859-0"],[50,"Applications of Noninvasive Vascular Techniques","Gerlock Giyanani Krebs","1988","9780721623351"],[51,"General and Vascular Ultrasound Case Review Series","William D. Middleton","2007","978-1416039891"],[52,"Vascular Nursing - Third Edition","Victoria A. Fahey","1999","978-0721676579"],[53,"Ultrasound of the Musculoskeletal System","S. Bianchi, C. Martinoli","2007","978-8181287038"],[54,"General Sonography A Clinical Guide","Beth Anderhub","1995","978-0801674211"],[55,"Vascular Diagnosis with Ultrasound - Clinical References with Case Studies","Michael Hennerici, Doris Neuerburg-Heusler, Thomas Karasch, Wolgang Rautenberg","1998","9783131038319"],[56,"Diagnostic Breast Imaging","Sylvia H. Heywang-Kobrunner, Ingrid Schreer, D. David Dershaw","1997","9783131028938"],[57,"Teaching Atlas of Breast Ultrasound","Georg Thieme Verlag","1996","3-774102-5"],[58,"Ultrasonography: An Introduction to Normal Structure and Functional Anatomy","Reva Arnez Curry and Betty Bates Tempkin","1995","9780721645858"],[59,"The Normal Examination and Echocardiographic Measurements - Second Edition","Bonita Anderson","2007","9780646468631"],[60,"Textbook of Diagnostic Ultrasonography - Sixth Edition","Sandra L. Hagen-Ansert","2007","978-0323028035"],[61,"Textbook of Diagnostic Ultrasonography - 7th Edition","Sandra L. Hagen-Ansert","2012","9780323073011"],[62,"Clinical Guide to Sonography - Exercises for Critical Thinking - Second Edition","Charlotte Henningsen, Kathryn Kuntz, Diane Youngs","2014","978-0323091640"],[63,"Exercises in Sonography - Introduction to Normal Structure and Function - Second Edition","Reva Arnez Curry and Betty Bates Tempkin","2004","9780721697802"],[64,"Ultrasound of the Gastrointestinal Tract","G. Maconi, G. Bianchi Porro","2007","978-3-642-31982-2"],[65,"Thyroid Ultrasound - Guided FNA - Second Edition","H. Jack Baskin, Daniel S. Duick, Robert A. Levine","2008","978-3319672373"],[66,"Atlas of Head and Neck Ultrasound","Heinrich Iro, Alessandro Bozzato, Johannes Zenk","2013","978-3131603517"],[67,"Diagnostic Ultrasound - 4th Edition - Volume 1","Carol M. Rumack, Stephanie R. Wilson, J. William Charboneau, Deborah Levine","2011","978-0323053976"],[68,"Diagnostic Ultrasound - 4th Edition - Volume 2","Carol M. Rumack, Stephanie R. Wilson, J. William Charboneau, Deborah Levine","2011","978-0323463416"],[69,"Diagnostic Ultrasound - 3rd Edition - Volume 1","Carol M. Rumack, Stephanie R. Wilson, J. William Charboneau","1998","9780323020237"],[70,"Diagnostic Ultrasound - 3rd Edition - Volume 2","Carol M. Rumack, Stephanie R. Wilson, J. William Charboneau","1998","9789997629524"],[71,"Ultrasound A Practical Approach to Clinical Problems","Edward I. Bluth, Peter H. Arger, Carol B. Benson, Marilyn J. Siegel","1999","3131168323"],[72,"Expert ddX Obstetrics","Woodward, Kennedy, Sohaey","2009","978-1931884105"],[73,"Abdominal Ultrasound A Practical Guide","Kathryn A. Gill","2001","9780721681313"],[74,"Borderlands of Normal and Early Pathologic Findings in Skeletal Radiography 4th Edition","Hermsan Schmidt, Jurgen Freyschmidt","1993","978-3137841043"],[75,"The Radiologic Clinics of North America - Ultrasound of Small Parts","Bruce Silver","1992","9780323678315"],[76,"Radiology and Injury in Sport","Jack W. Bowerman","1977","978-0838582503"],[77,"The Radiologic Clinics of North America - Imaging of the Paranasal Sinuses and Oramaxillofacial Region","Mahmood F. Mafee","1993","9781493902651"],[78,"The Radiologic Clinics of North America - Update on Ultrasonography","Faye C. Laing","2001","978-0323326780"],[79,"Workbook Prehospital Emergency Care - Fifth Edition","Brent Q. Hafen, Keith J. Karren, Joseph J. Mistovich","1995","9780835960649"],[80,"The Human Brain and Spinal Cord - Functional Neuroanatomy and Dissection Guide","Lennart Heimer","1983","978-0387907406"],[81,"Fundamentals of Body CT","Webb, Brant, Helms","1991","9780721635415"],[82,"A Guide to Radiological Procedures - 4th Edition","Stephen Chapman and Richard Nakielny","2001","978-0702025655"],[83,"Who Moved My Cheese?","Spencer Johnson","1998","978-0743582858"],[84,"Health Care Market Strategy - From Planning to Action - 3rd Edition","Steven G. Hillestad and Eric N. Berkowitz","1991","978-0763747992"],[85,"How to Survive and Maybe Even Love Health Professions School - Retention and Career Placement Guide","Arlene M. Muller","2011","978-0803623651"],[86,"The Holt Handbook - 3rd Edition","Kirszener & Maddell","1992","978-0030555435"],[87,"MRI Survival Guide","Jim D. Cardoza, Robert J. Herfkens","1994","978-0781701808"],[88,"Practical Guide to Abdominal & Pelvic MRI","John R. Leyendecker, Jeffrey J. Brown","2004","0781742951"],[89,"MRI: Principles and Artifacts","R. Edwards Hendrick, Paul D. Russ, Jack H. Simon","1993","978-0881677096"],[90,"Computed Tomography of the Pelvis","James W. Walsh","1985","978-0443083860"],[91,"Human Resource Management - 5th Edition","Fisher, Schoenfeldt, Shaw","2003","9780618123292"],[92,"Best Cover Letter for $100,000 Jobs","Wendy S. Enelow","2001","978-1570231698"],[93,"Critical Care and Emergency Nursing - 3rd Edition","Sandra Smith Huddleston, Sondra G. Ferguson","1997","780874349009"],[94,"Organic Chemistry - Crash Course","Herbert Meislich, Howard Nechamkin, Jacob Sharefkin","2000","9780071368513"],[95,"All New Family Medical Guide to Health & Prevention","Gary J. Martin and Northwest University Medical School","1995","978-0785312291"],[96,"Orthopedic Radiology","Weissman & Sledge","1986","978-0721691855"],[97,"Physicians' Desk Reference For Nonprescription Drugs","Thomson Pdr -Publisher","1998","978-1563632563"],[98,"Teaching Atlas of the Spine Imaging","Ruth G. Ramsey","1999","978-0865777781"],[99,"Examination Review for Ultrasound: SPI: Sonographic Principles & Instrumentation 2nd","Steven M. Penny, Traci Fox","2018","978-1496377326"],[100,"Introduction to Vascular Ultrasonography","John S. Pellerito , Joseph F. Polak","2020","978-0323428828"],[101,"Sonography Principles and Instruments","Fredrick W. Kremkau","2016","978-0323597081"],[102,"Textbook of Clinical Echocardiography","Catherine M. Otto","2018","978-0323480482"],[103,"Vascular Anatomy and Physiology","Ann C. Belanger","1999","978-0941022118"],[104,"Examination Review for Ultrasound: Abdomen and Obstetrics & Gynecology 3rd","Steven M. Penny","2022","978-1975185480"],[105,"Craig's Essentials of Sonography and Patient Care 4th","Robert deJong","2017","978-0323416344"]];
+const CATS=[
+ ["Registry Review",/review|examination review|rapid review/i],
+ ["Physics & Instrumentation",/physics|instrument|principles/i],
+ ["Echo & Cardiac",/echo|cardi|ekg|life support/i],
+ ["Vascular",/vascular/i],
+ ["OB/GYN",/\bob\b|obstetric|gyn|fetal/i],
+ ["Breast",/breast/i],
+ ["Musculoskeletal",/muscul|orthop|skeletal|sport|spine/i],
+ ["Abdomen & General Sonography",/sonograph|ultrason|ultrasound|abdom|gastro|thyroid|head and neck|small parts|protocol/i],
+ ["Anatomy & Physiology",/anatomy|physiolog|human body|brain/i],
+ ["Medical Terminology",/terminolog|dictionary/i],
+ ["Ethics, Law & Patient Care",/ethic|law|patient care|nursing|emergency/i],
+ ["Career & Study Skills",/career|cover letter|survive|cheese|communicate|holt|algebra|human resource|market/i]
+];
+const catOf=(b)=>{for(const [n,re] of CATS) if(re.test(b[1])) return n; return "Imaging & General Reference";};
+BOOKS.forEach(b=>b.push(catOf(b)));
+
+const LIB=[
+ ["Open access journals","The Ultrasound Journal","https://theultrasoundjournal.springeropen.com/","Free full text research on clinical ultrasound and point of care imaging.",["journal","general"]],
+ ["Open access journals","Cardiovascular Ultrasound","https://cardiovascularultrasound.biomedcentral.com/","Free full text journal covering echocardiography and vascular ultrasound.",["journal","echo","vascular"]],
+ ["Open access journals","Echo Research and Practice","https://echo.biomedcentral.com/","Open access echocardiography journal with case reports and guidance papers.",["journal","echo"]],
+ ["Open access journals","Ultrasound International Open","https://www.thieme.de/de/ultrasound-international-open/journal-information-65051.htm","Open access ultrasound journal from Thieme across all specialties.",["journal","general"]],
+ ["Open access journals","PubMed Central: abdominal sonography",PMC("abdominal ultrasound sonography"),"Free full text articles from the NIH National Library of Medicine.",["articles","abdomen"]],
+ ["Open access journals","PubMed Central: obstetric and gynecologic sonography",PMC("obstetric gynecologic ultrasound"),"Free full text OB and GYN ultrasound articles.",["articles","OB GYN"]],
+ ["Open access journals","PubMed Central: vascular duplex",PMC("duplex ultrasound vascular"),"Free full text vascular ultrasound articles.",["articles","vascular"]],
+ ["Open access journals","PubMed Central: echocardiography",PMC("echocardiography sonographer"),"Free full text echocardiography articles.",["articles","echo"]],
+ ["Case studies and image libraries","Radiopaedia ultrasound cases",RAD("ultrasound"),"Thousands of peer reviewed cases with images. Search any pathology.",["cases","all"]],
+ ["Case studies and image libraries","Ultrasound Cases","https://www.ultrasoundcases.info/","Large teaching file of annotated ultrasound cases organized by organ system.",["cases","all"]],
+ ["Case studies and image libraries","The POCUS Atlas","https://www.thepocusatlas.com/","Free image and video atlas of point of care ultrasound findings.",["cases","clips"]],
+ ["Case studies and image libraries","StatPearls on NCBI Bookshelf","https://www.ncbi.nlm.nih.gov/books/?term=ultrasound+statpearls","Free peer reviewed review chapters on ultrasound techniques and conditions.",["reference","all"]],
+ ["Professional societies and guidelines","SDMS: Society of Diagnostic Medical Sonography","https://www.sdms.org/","The professional society for sonographers. Student membership includes the Journal of Diagnostic Medical Sonography.",["society","general"]],
+ ["Professional societies and guidelines","SVU: Society for Vascular Ultrasound","https://www.svu.org/","Vascular technology society with professional performance guidelines and education.",["society","vascular"]],
+ ["Professional societies and guidelines","AIUM: American Institute of Ultrasound in Medicine","https://www.aium.org/","Multidisciplinary society that publishes practice parameters for ultrasound examinations.",["society","general"]],
+ ["Professional societies and guidelines","ASE: American Society of Echocardiography","https://www.asecho.org/guidelines-topics/sonographer_guidelines","Free ASE guidelines, including documents written for sonographers.",["society","echo"]],
+ ["Video library","ASE videos on YouTube",YT("American Society of Echocardiography"),"Echocardiography lectures and guideline webinars from ASE.",["video","echo"]],
+ ["Video library","AIUM videos on YouTube",YT("AIUM ultrasound"),"Practice parameter webinars and scanning talks from AIUM.",["video","general"]],
+ ["Video library","SDMS videos on YouTube",YT("SDMS Society of Diagnostic Medical Sonography"),"Sonographer education and career videos from SDMS.",["video","general"]],
+ ["Video library","SVU videos on YouTube",YT("Society for Vascular Ultrasound"),"Vascular technology education from SVU.",["video","vascular"]],
+ ["Video library","ARDMS videos on YouTube",YT("ARDMS registry exam"),"What to expect on registry day, straight from ARDMS.",["video","registry"]]
+];
+const MEMBERSHIPS=[["SDMS","Student membership","Journal of Diagnostic Medical Sonography and continuing education"],["SVU","Student membership","Journal for Vascular Ultrasound and vascular education"],["AIUM","Student membership","Journal of Ultrasound in Medicine and practice parameters"],["ASE","Student membership","Journal of the American Society of Echocardiography and echo webinars"]];
+
+const PHYS_TOPICS=[["Sound waves and parameters","Period, frequency, amplitude, power, intensity, wavelength and propagation speed. Know which the source sets and which the medium sets."],["Pulsed ultrasound","Pulse duration, spatial pulse length, pulse repetition period and frequency, and duty factor."],["Intensities","Spatial and temporal peak and average intensities, beam uniformity ratio and why SPTA matters for bioeffects."],["Attenuation, reflection and refraction","Absorption, scattering, impedance mismatch, specular versus diffuse reflection and Snell's law."],["The range equation","Time of flight and the 13 microsecond rule: every 13 µs of go return time equals 1 cm of depth in soft tissue."],["Transducers","Piezoelectric effect, PZT, matching layer, backing material, bandwidth and quality factor."],["Sound beams and focusing","Near zone, focus and far zone, divergence and the effect of crystal diameter and frequency."],["Axial and lateral resolution","Axial resolution equals half the spatial pulse length. Lateral resolution equals beam width."],["Display modes and real time imaging","A, B and M mode, frame rate, temporal resolution and the tradeoffs between depth, lines and focal zones."],["Arrays","Linear, curvilinear, phased and annular arrays, steering and electronic focusing."],["Receiver functions","Amplification, compensation (TGC), compression, demodulation and reject, in order."],["Storage, processing and harmonics","Preprocessing versus postprocessing, contrast and tissue harmonics."],["Doppler and hemodynamics","Doppler equation, angle effects, aliasing and the Nyquist limit, spectral analysis and flow patterns."],["Artifacts","Reverberation, comet tail, mirror image, shadowing, enhancement, refraction and side lobes."],["Bioeffects and safety","Thermal and mechanical mechanisms, TI and MI, and the ALARA principle."],["Quality assurance","Phantoms, and testing of dead zone, registration, resolution and sensitivity."]];
+const QUIZ=[["What is the average speed of sound in soft tissue?",["1,540 m/s","330 m/s","4,080 m/s","1,450 m/s"],0,"The machine assumes 1,540 m/s (1.54 mm/µs) for every range calculation."],["Doubling the transducer frequency does what to wavelength?",["Halves it","Doubles it","No change","Quadruples it"],0,"Wavelength equals propagation speed divided by frequency, so they are inversely related."],["A reflector returns an echo 26 µs after the pulse leaves. How deep is it?",["2 cm","1 cm","4 cm","13 cm"],0,"13 µs of go return time equals 1 cm, so 26 µs places the reflector at 2 cm."],["Axial resolution is determined by:",["Spatial pulse length","Beam width","Frame rate","Output power"],0,"Axial resolution equals SPL ÷ 2. Shorter pulses give better axial resolution."],["Aliasing occurs when the Doppler shift exceeds:",["Half the PRF","The PRF","Twice the PRF","The transmit frequency"],0,"The Nyquist limit is PRF ÷ 2. Raise the scale, lower the baseline or use a lower frequency to correct it."],["Which receiver function compensates for attenuation with depth?",["TGC","Reject","Demodulation","Compression"],0,"Time gain compensation adds more amplification to echoes from deeper structures."],["The Doppler shift is greatest when the angle between beam and flow is:",["0 degrees","45 degrees","60 degrees","90 degrees"],0,"Cosine of 0 is 1. At 90 degrees the cosine is 0 and no shift is measured."],["Which principle guides safe scanning?",["ALARA","SPTA","BUR","PRF"],0,"As Low As Reasonably Achievable: use the lowest output and shortest exposure that give a diagnostic exam."]];
+
+const PATHS={
+ hsd:{label:"High school diploma or GED",track:"Track 1",registry:"CCI",doc:"docs/pathway-hsd-ged.pdf",ack:"docs/track1-acknowledgment.pdf",steps:[["Choose cardiac or vascular before externship","Your specialty must be set before you are placed so the site can meet CCI clinical requirements."],["Complete 800 clinical hours in that specialty","CCI track students may apply for the exam once 800 externship hours have elapsed."],["Sit for CCI RCS or RVS","Qualify under CCI prerequisite RCS5 or RVS5. Documentation: completion certificate or transcript, student verification letter and clinical experience letter."],["Optional: pass the ARDMS SPI","You can sit for SPI while in the program after earning a C or better in CURE's Ultrasound Physics course.",true],["Optional: add ARDMS specialty credentials","With an active CCI credential and SPI, you qualify for ARDMS specialty exams under Prerequisite 5.",true]]},
+ aas:{label:"Associate degree",track:"Track 2",registry:"ARRT or CCI",doc:"docs/pathway-associate.pdf",ack:"docs/track2-acknowledgment.pdf",steps:[["Option 1: ARRT Sonography","Your externship is completed in general ultrasound: abdomen, OB, GYN and small parts. Apply within 3 years of graduation; ARRT does not accept applications after that window."],["Option 2: CCI RCS or RVS","Must be decided before externship. Complete 800 hours in cardiac or vascular and qualify under RCS5 or RVS5."],["Optional: pass the ARDMS SPI","Eligible while in the program after a C or better in Ultrasound Physics.",true],["Optional: add ARDMS specialty credentials","An active ARRT or CCI credential plus SPI qualifies you under ARDMS Prerequisite 5.",true]]},
+ ba:{label:"Bachelor degree or higher",track:"Track 3",registry:"ARDMS",doc:"docs/pathway-bachelor.pdf",ack:"docs/track3-acknowledgment.pdf",steps:[["Pass the ARDMS SPI","Required before any ARDMS specialty exam. Eligible while in the program after a C or better in Ultrasound Physics."],["Sit for an ARDMS specialty exam","Qualify under ARDMS Prerequisite 3A. Externship defaults to general ultrasound unless an exception is approved."],["Other options","ARRT Sonography (apply within 3 years of graduation) or CCI RCS or RVS with 800 specialty hours chosen before externship.",true]]}
+};
+
+const PALETTES=[["yale","Yale Blue & Beige",["#003D77", "#EBEBD3", "#F4D35E", "#EE964B", "#F95738"]],["teal","Deep Teal & Rust",["#003135", "#024950", "#964734", "#0FA4AF", "#AFDDE5"]],["midnight","Midnight & Violet",["#050D4C", "#6922DD", "#87C6EF"]],["lavender","Slate & Lavender",["#A0D2EB", "#E5EAF5", "#D0BDF4", "#8458B3", "#494D5F"]],["embers","Embers",["#41436A", "#984063", "#F64668", "#FE9677"]],["wood","Warm Wood",["#3E362E", "#865D36", "#93785B", "#AC8968", "#A69080"]],["electric","Electric Blue & Pink",["#FF1D58", "#F75990", "#FFF685", "#00DDFF", "#0049B7"]]];
+const FONTS=[["franklin","Franklin Gothic with Calibri","Franklin Gothic headings, Calibri text","'Franklin Gothic Medium','Libre Franklin'"],["calibri","Calibri","Calibri throughout","Calibri,Carlito"],["franklinall","Franklin Gothic","Franklin Gothic throughout","'Franklin Gothic Book','Libre Franklin'"],["aptos","Aptos Display with Aptos","Microsoft\'s newest Office font","'Aptos Display',Aptos,Figtree"],["source","Source Sans","Clean and neutral","'Source Sans 3'"]];
+
+/* ---------- HELPERS ---------- */
+const tag=(t,c)=>`<span class="tag ${c||""}">${esc(t)}</span>`;
+const extCard=(title,url,desc,tags)=>`<a class="card" href="${esc(url)}" target="_blank" rel="noopener" data-search="${esc((title+" "+desc+" "+(tags||[]).join(" ")).toLowerCase())}"><h3>${esc(title)} <span class="ext" aria-hidden="true">↗</span></h3><p>${esc(desc)}</p><div class="meta">${(tags||[]).map((t,i)=>tag(t,["teal","orange","violet","gold"][i%4])).join("")}</div></a>`;
+const head=(eyebrow,title,lede)=>`<div class="sec-head"><span class="eyebrow">${esc(eyebrow)}</span><h2>${title}</h2>${lede?`<p>${lede}</p>`:""}</div>`;
+const docBtn=(label,file,title,cls)=>`<button class="btn ${cls||"ghost"} sm" type="button" data-doc="${esc(file)}" data-title="${esc(title)}">${esc(label)}</button>`;
+const personCard=(p)=>`<div class="card person"><span class="tag ${p[4]}">${esc(p[0])}</span><h3>${esc(p[1])}</h3>${mail(p[2])}${p[3]?`<span class="phone">${esc(p[3])}</span>`:""}${p[5]?`<span class="note">${esc(p[5])}</span>`:""}</div>`;
+const fmtDate=(iso)=>{try{return new Date(iso).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}catch(e){return ""}};
+/* ---------- CALENDAR (students see closures, recesses and events; cohort orientations and start dates are intentionally left out) ---------- */
+/* [start, end or "", title, kind]  kind: closed | noclass | resume | event | aware */
+const EVENTS=[
+ ["2026-01-01","","New Year's Day","closed"],["2026-01-02","","No classes","noclass"],["2026-01-05","","Classes resume","resume"],
+ ["2026-01-19","","Dr. Martin Luther King Jr. Day","closed"],
+ ["2026-02-13","","Wear something red for Valentine's Day","event"],["2026-02-16","","Presidents' Day","closed"],
+ ["2026-03-08","","Daylight saving time begins","aware"],
+ ["2026-04-03","","Good Friday (administrative offices open)","noclass"],["2026-04-22","","Administrative Professionals Day","aware"],["2026-04-29","","Here Comes Summer: Spring Fling","event"],
+ ["2026-05-04","2026-05-08","Faculty Appreciation Week","aware"],["2026-05-13","","Class trip: Washington, DC (tentative)","event"],["2026-05-25","","Memorial Day","closed"],["2026-05-27","","Classes resume","resume"],
+ ["2026-06-19","","Juneteenth","closed"],["2026-06-29","2026-07-03","Summer break","noclass"],
+ ["2026-07-04","","Independence Day","closed"],["2026-07-06","","Classes resume","resume"],["2026-07-09","","2026 Graduation Ceremony","event"],["2026-07-22","","Summer Games Day","event"],
+ ["2026-08-12","","CURE Blood Drive and Health Fair","event"],
+ ["2026-09-02","2026-09-30","Guest Speaker Series","event"],["2026-09-07","","Labor Day","closed"],["2026-09-09","","Classes resume","resume"],
+ ["2026-10-01","2026-10-31","Ultrasound Awareness Month and Breast Cancer Awareness Month","aware"],["2026-10-12","","Indigenous Peoples' Day / Columbus Day","closed"],["2026-10-14","","Classes resume","resume"],
+ ["2026-11-01","","Daylight saving time ends","aware"],["2026-11-23","","Pre Thanksgiving Luncheon","event"],["2026-11-25","2026-11-27","Thanksgiving recess (administrative offices open except 11/26)","noclass"],["2026-11-26","","Thanksgiving Day","closed"],["2026-11-30","","Classes resume","resume"],
+ ["2026-12-21","2027-01-01","Winter recess (administrative offices open except 12/25 and 1/1)","noclass"],["2026-12-25","","Christmas Day","closed"],
+ ["2027-01-01","","New Year's Day","closed"],["2027-01-04","","Classes resume","resume"],["2027-01-18","","Dr. Martin Luther King Jr. Day","closed"]
+];
+const KIND={closed:["Campus closed","k-closed"],noclass:["No classes","k-noclass"],resume:["Classes resume","k-resume"],event:["Event","k-event"],aware:["Recognition","k-aware"]};
+const pd=(s)=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);};
+const fmtD=(s,o)=>pd(s).toLocaleDateString("en-US",o||{weekday:"short",month:"short",day:"numeric"});
+const todayISO=()=>{const t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");};
+const upcoming=(n)=>{const t=todayISO();return EVENTS.filter(e=>(e[1]||e[0])>=t).sort((a,b)=>a[0].localeCompare(b[0])).slice(0,n);};
+const evRow=(e)=>`<div class="ev" data-search="${esc((e[2]+" "+KIND[e[3]][0]).toLowerCase())}"><div class="ev-date"><b>${pd(e[0]).getDate()}</b><span>${fmtD(e[0],{month:"short"})}</span></div><div class="ev-body"><h4>${esc(e[2])}</h4><span class="hours">${fmtD(e[0],{weekday:"long",month:"long",day:"numeric"})}${e[1]?" to "+fmtD(e[1],{weekday:"long",month:"long",day:"numeric"}):""}</span></div><span class="kpill ${KIND[e[3]][1]}">${KIND[e[3]][0]}</span></div>`;
+
+/* ---------- ANNOUNCEMENTS: read from the "CURE Alerts" Google Sheet ----------
+   Columns: Type | Title | Message | Start Date | Start Time | End Date | End Time | Posted By
+   Type: closure, delay, early or info. Dates MM/DD/YYYY, times like 6:00 AM. Blank start = now, blank end = until removed. */
+const ALERTS_SHEET_ID="10pcfIExm-RtvmMG27nZUWiwHT4_i7IamKNkf4929Ruc";
+const ALERTS_URL="https://docs.google.com/spreadsheets/d/"+ALERTS_SHEET_ID+"/gviz/tq?tqx=out:csv";
+let ANN=[];
+const ANN_STYLE={closure:["Campus closed","a-closure"],delay:["Delayed opening","a-delay"],early:["Early dismissal","a-delay"],info:["Announcement","a-info"]};
+function parseCSV(t){const rows=[];let r=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c==='"')q=true;else if(c===","){r.push(f);f="";}else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;r.push(f);rows.push(r);r=[];f="";}else f+=c;}if(f!==""||r.length){r.push(f);rows.push(r);}return rows;}
+function sheetDate(d,t,endOfDay){d=(d||"").trim();if(!d)return null;let m=d.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);let y,mo,da;if(m){mo=+m[1];da=+m[2];y=+m[3];if(y<100)y+=2000;}else{const x=new Date(d);if(isNaN(x))return null;y=x.getFullYear();mo=x.getMonth()+1;da=x.getDate();}
+ let h=endOfDay?23:0,mi=endOfDay?59:0;const tm=(t||"").trim().match(/^(\d{1,2})(?::(\d{2}))?(?::\d{2})?\s*([AaPp][Mm])?$/);if(tm){h=+tm[1];mi=+(tm[2]||0);const ap=(tm[3]||"").toLowerCase();if(ap==="pm"&&h<12)h+=12;if(ap==="am"&&h===12)h=0;}
+ return new Date(y,mo-1,da,h,mi);}
+function rowsToAnn(rows){if(!rows.length)return[];const hd=rows[0].map(h=>h.trim().toLowerCase());const ix=k=>hd.findIndex(h=>h.startsWith(k));
+ const I={type:ix("type"),title:ix("title"),msg:ix("message"),sd:ix("start date"),st:ix("start time"),ed:ix("end date"),et:ix("end time"),by:ix("posted")};
+ return rows.slice(1).map(r=>{const g=k=>I[k]>=0?(r[I[k]]||"").trim():"";const type=g("type").toLowerCase();
+  return {type:ANN_STYLE[type]?type:"info",title:g("title"),message:g("msg"),startD:sheetDate(g("sd"),g("st"),false),endD:sheetDate(g("ed"),g("et")||"",!g("et")),posted:g("by")};}).filter(a=>a.title&&!/^example/i.test(a.title));}
+function activeAnn(){const now=new Date();return ANN.filter(a=>(!a.startD||a.startD<=now)&&(!a.endD||a.endD>=now));}
+function renderAlerts(){const slot=document.getElementById("alertSlot"); if(!slot) return; slot.innerHTML=activeAnn().map(a=>{const st=ANN_STYLE[a.type];return `<div class="alert ${st[1]}" role="alert"><div class="wrap"><span class="alert-tag">${st[0]}</span><div><b>${esc(a.title)}</b>${a.message?`<p>${esc(a.message)}</p>`:""}${a.posted?`<small>Posted by ${esc(a.posted)}</small>`:""}</div></div></div>`}).join("");}
+function loadAnn(){try{fetch(ALERTS_URL+"&t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{if(!t||/^\s*</.test(t))return; ANN=rowsToAnn(parseCSV(t)); renderAlerts(); const h=document.getElementById("homeAnn"); if(h) h.innerHTML=homeAnnHTML();}).catch(()=>{});}catch(e){}}
+function homeAnnHTML(){const list=activeAnn(); return list.length?list.map(a=>`<div class="callout"><b>${esc(a.title)}</b>${a.message?` ${esc(a.message)}`:""}</div>`).join(""):`<p class="note">No active announcements. Closures, delayed openings and early dismissals appear at the top of every page.</p>`;}
+
+const VIEWS={};
+
+VIEWS.home=()=>`
+ ${head("Welcome","Everything you need, from day one to registry day","Your courses, library, physics review, registry pathway and clinical handbook in one place. Add this page to your phone's home screen.")}
+ <div class="band lib">
+  <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="display:grid;gap:6px;max-width:62ch"><span class="eyebrow forsites">Student Resources</span><h3 style="font-size:1.5rem">Your library, open 24/7</h3><p>Syllabi and lecture slides for every course, ${BOOKS.length} campus textbooks you can reserve online and pick up at the Registrar's office, free journals and case libraries, society guidelines, physics review and registry prep.</p></div></div>
+  <div class="row">${STUDENT_TABS.map(t=>`<a class="btn white sm" href="#${t[0]}">${t[1]}</a>`).join("")}</div>
+ </div>
+ <div class="grid two">
+  <div class="card"><span class="tag">Announcements</span><div id="homeAnn" style="display:grid;gap:8px">${homeAnnHTML()}</div></div>
+  <div class="card"><span class="tag">Coming up</span><div class="evlist compact">${upcoming(4).map(evRow).join("")}</div><div class="meta"><a class="btn ghost sm" href="#calendar">Full calendar</a></div></div>
+ </div>
+ <div class="grid">
+  ${[["clinical","Clinical","Externship handbook, logs, attendance and exit process.","teal"],["careers","Careers","Job outlook and the CURE Sonography Careers board.","orange"],["protocols","Protocols",PROTOCOLS.length+" CURE scanning protocols for lab, scan outs and externship.","violet"],["credentialing","My Registry Pathway","Your CCI, ARRT or ARDMS route based on your education.","gold"],["refer","Refer a Friend","Send a future sonographer to CURE Admissions.","violet"]].map(x=>`<a class="card" href="#${x[0]}"><span class="tag ${x[3]}">${x[1]}</span><h3>${x[2]}</h3></a>`).join("")}
+ </div>
+ <div class="grid">
+  <div class="band navy"><span class="eyebrow forsites">For clinical sites</span><h3 style="font-size:1.4rem">Thank you for training our externs</h3><p>Review externship policies and clinical log rules, or contact Externship Support about a student at ${mail("leigh@cure.edu")}. Site staff who precept CURE students can request free instructor access to Prepry.</p><div class="row"><a class="btn gold" href="#clinical">Externship policies</a></div></div>
+ </div>
+ <div class="group-title"><h3>Who to contact</h3><span class="mainline">Main line (914) 448‑2873</span></div>
+ <div class="grid">${PEOPLE.map(personCard).join("")}</div>`;
+
+VIEWS.courses=()=>`
+ ${head("Student Resources · Diagnostic Medical Sonography, Vascular Technology, Echocardiography","Courses","2,400 clock hours over 8 quarters: 700 lecture, 800 lab and 900 externship. Choose your quarter, then open the syllabus or lecture slides for your course.")}
+ <div class="filters" id="qfilter">${["All","Q1","Q2","Q3","Q4","Q5","Q6 to 8"].map((l,i)=>`<button class="fbtn" type="button" data-q="${i}" aria-pressed="false">${l}</button>`).join("")}</div>
+ <div class="grid" id="courseGrid"></div>
+ <div class="row"><span class="note">Hours shown as lecture / lab / externship. Source: CURE School Catalog 2024 to 2026.</span>${docBtn("Read the School Catalog","files/catalog.pdf","CURE School Catalog 2024 to 2026")}</div>`;
+function renderCourses(q){
+ const g=document.getElementById("courseGrid"); if(!g) return;
+ g.innerHTML=COURSES.filter(c=>q===0||c[0]===q).map(c=>{const tot=c[3]+c[4]+c[5],sl=SLIDES[c[1]]||[];
+  return `<div class="card" data-search="${esc((c[1]+" "+c[2]+" "+c[6]).toLowerCase())}"><div class="row" style="justify-content:space-between"><span class="code">${c[1]}</span><span class="tag">${c[0]===6?"Q6 to 8":"Quarter "+c[0]}</span></div><h3>${esc(c[2])}</h3><p>${esc(c[6])}</p><span class="hours">${c[3]} / ${c[4]} / ${c[5]} · ${tot} hrs</span><div class="docrow meta">${docBtn("Syllabus",syl(c[1]),c[1]+" "+c[2]+" Syllabus","")}${sl.map((s,i)=>docBtn(sl.length>1?"Slides "+(i+1):"Slides",s[1],c[1]+" · "+s[0])).join("")}${(()=>{const pr=protoFor(c[1]);return pr.map(p=>protoBtn(p,pr.length>1?"Protocol: "+p[1]:"Protocol","ghost")).join("");})()}</div></div>`}).join("");
+}
+
+VIEWS.library=()=>{const groups=[...new Set(LIB.map(r=>r[0]))];return `
+ ${head("Student Resources","Learning Library","Free, curated ultrasound resources for every specialty: current journals and case studies, the professional societies' own guidelines, trusted video channels, your textbook companion site and CURE's campus book collection.")}
+ <div class="grid">
+  <a class="card libcard" href="#books"><span class="tag">Campus collection</span><h3>Borrow a textbook</h3><p>Reserve any of ${BOOKS.length} titles online and pick it up at the Registrar's office.</p></a>
+  <a class="card libcard" href="#courses"><span class="tag">Your courses</span><h3>Syllabi and lecture slides</h3><p>Open them from your course card on the Courses tab.</p></a>
+  <a class="card libcard" href="https://evolve.elsevier.com/" target="_blank" rel="noopener"><span class="tag">Textbook companion</span><h3>Elsevier Evolve Student Resources ↗</h3><p>Sign in with the Evolve account tied to your textbooks for chapter quizzes, image banks and case studies.</p></a>
+  <div class="card libcard"><span class="tag">Catalog</span><h3>School Catalog 2024 to 2026</h3><p>Program outline, policies and full course descriptions.</p><div class="meta">${docBtn("Read the catalog","files/catalog.pdf","CURE School Catalog 2024 to 2026","")}</div></div>
+ </div>
+ <div class="filters" id="libFilter">${["All","general","abdomen","OB GYN","vascular","echo","cases","video"].map((l,i)=>`<button class="fbtn" type="button" data-t="${l}" aria-pressed="${i===0}">${l==="All"?"All":l.replace(/^./,m=>m.toUpperCase())}</button>`).join("")}</div>
+ ${groups.map(g=>`<div class="group-title"><h3>${esc(g)}</h3></div><div class="grid lib-grid">${LIB.filter(r=>r[0]===g).map(r=>extCard(r[1],r[2],r[3],r[4])).join("")}</div>`).join("")}
+ <div class="card"><span class="tag">Coming next</span><h3>Society student memberships</h3><p>CURE is reviewing student memberships that add full journal access. Approved memberships will appear here with sign up steps.</p><div class="grid">${MEMBERSHIPS.map(m=>`<div class="card"><span class="tag">${m[0]}</span><h3>${m[1]}</h3><p>${m[2]}</p></div>`).join("")}</div></div>
+ <div class="card"><h3>Request a resource</h3><p>Need an article, a textbook chapter or a topic we don't cover? Email the Program Director at ${mail("siham@cure.edu")} with the title or topic and your course.</p></div>`;};
+
+/* ---------- BORROW BOOKS ---------- */
+const LIBSTATE={db:null,user:null,me:null,staff:false,loans:{},unsub:null,ready:false,filter:"All",q:""};
+VIEWS.books=()=>`
+ ${head("Student Resources · Campus collection","Borrow Books",`Reserve a textbook here, then pick it up and return it at the Registrar's office, Suite W101. Loans run ${LOAN_DAYS} days, up to ${MAX_ACTIVE} books at a time.`)}
+ <div class="band lib" id="myBooks"><span class="eyebrow" style="color:#F5D9DD">My books</span><p id="myBooksBody">Loading your reservations…</p></div>
+ <div id="deskSlot"></div>
+ <div class="booktools"><input id="bookQ" type="search" placeholder="Search title, author or ISBN" aria-label="Search books"><select id="bookCat" aria-label="Subject"><option>All</option>${[...new Set(BOOKS.map(b=>b[5]))].sort().map(c=>`<option>${esc(c)}</option>`).join("")}</select></div>
+ <p class="note" id="bookCount"></p>
+ <div class="booklist" id="bookList"></div>
+ <div class="grid">${[PEOPLE[4],PEOPLE[5]].map(personCard).join("")}</div>`;
+
+function activeLoans(){ // bookNo -> {uid, ...item}
+ const map={};
+ for(const [uid,doc] of Object.entries(LIBSTATE.loans)){ const items=(doc&&doc.items)||{};
+  for(const [no,it] of Object.entries(items)) if(it&&["requested","ready","out"].includes(it.s)) map[no]={uid,...it}; }
+ return map;
+}
+function statusChip(no,act){
+ const a=act[no]; if(!a) return `<span class="st ok">Available</span>`;
+ const mine=LIBSTATE.me&&a.uid===LIBSTATE.me;
+ if(mine) return `<span class="st mine">${a.s==="requested"?"Requested by you":a.s==="ready"?"Ready for you":"Checked out to you"}</span>`;
+ return a.s==="out"?`<span class="st out">Checked out${a.due?" · due "+fmtDate(a.due):""}</span>`:`<span class="st hold">On hold</span>`;
+}
+function renderBooks(){
+ const list=document.getElementById("bookList"); if(!list) return;
+ const act=activeLoans(); const q=LIBSTATE.q.toLowerCase(); const myActive=Object.values(act).filter(a=>a.uid===LIBSTATE.me).length;
+ const rows=BOOKS.filter(b=>(LIBSTATE.filter==="All"||b[5]===LIBSTATE.filter)&&(!q||(b[1]+" "+b[2]+" "+b[4]).toLowerCase().includes(q)));
+ document.getElementById("bookCount").textContent=rows.length+" of "+BOOKS.length+" titles";
+ list.innerHTML=rows.map(b=>{const no=String(b[0]),a=act[no],mine=a&&a.uid===LIBSTATE.me;
+  let btn="";
+  if(LIBSTATE.db&&LIBSTATE.me&&LIBSTATE.canWrite){ if(!a) btn=`<button class="btn sm" type="button" data-req="${no}" ${myActive>=MAX_ACTIVE?"disabled title='You have reached the limit'":""}>Request</button>`; else if(mine&&a.s==="requested") btn=`<button class="btn ghost sm" type="button" data-cancel="${no}">Cancel</button>`; }
+  else if(!a) btn=`<a class="btn ghost sm" href="mailto:desirae@cure.edu?cc=carolina@cure.edu&subject=${encodeURIComponent("Library request: "+b[1])}&body=${encodeURIComponent("Please hold this book for me.\n\nBook #"+b[0]+": "+b[1]+"\nAuthor: "+b[2]+"\nISBN: "+b[4]+"\n\nName:\nCohort:")}">Request by email</a>`;
+  return `<div class="book"><span class="no">#${b[0]}</span><div><b>${esc(b[1])}</b><small>${esc(b[2])}${b[3]?" · "+esc(b[3]):""}${b[4]?" · ISBN "+esc(b[4]):""}</small><small>${esc(b[5])}</small></div><div class="act">${statusChip(no,act)}${btn}</div></div>`;}).join("")||`<p class="note">No titles match. Try another search or subject.</p>`;
+ renderMyBooks(act); renderDesk(act);
+}
+function renderMyBooks(act){
+ const el=document.getElementById("myBooksBody"); if(!el) return;
+ if(!LIBSTATE.ready){ return; }
+ if(!LIBSTATE.db||!LIBSTATE.me){ el.innerHTML=`Online reservations need you to be signed in. You can still request any available book by email, or ask at the Registrar's office.`; return; }
+ const mine=Object.entries(act).filter(([n,a])=>a.uid===LIBSTATE.me);
+ if(!mine.length){ el.textContent="You have no books reserved or checked out. Find a title below and select Request."; return; }
+ el.innerHTML=mine.map(([n,a])=>{const b=BOOKS.find(x=>String(x[0])===n)||[n,"Book #"+n];
+  const what=a.s==="requested"?"Requested. The Registrar's office will set it aside; check back here for Ready.":a.s==="ready"?"Ready for pickup at the Registrar's office, Suite W101.":"Checked out. Return it to the Registrar's office by "+fmtDate(a.due)+".";
+  const late=a.s==="out"&&a.due&&new Date(a.due)<new Date();
+  return `<span style="display:block;margin-top:6px"><b style="color:#fff">${esc(b[1])}</b> · ${late?'<b style="color:#FDE68A">Overdue. Please return it today.</b>':esc(what)}</span>`;}).join("");
+}
+async function renderDesk(act){
+ const slot=document.getElementById("deskSlot"); if(!slot) return;
+ if(!LIBSTATE.staff){ slot.innerHTML=""; return; }
+ const entries=Object.entries(act); const ids=[...new Set(entries.map(([,a])=>a.uid))];
+ let ps={}; try{ ps=ids.length&&LIBSTATE.user?await LIBSTATE.user.profiles(ids):{}; }catch(e){}
+ const who=(uid)=>{const p=ps[uid]; return p?((p.name||"Someone")+(p.email?" · "+p.email:"")):"Student";};
+ const grp=(s,label,actions)=>{const rows=entries.filter(([,a])=>a.s===s); return `<div class="group-title"><h3>${label}</h3><span>${rows.length}</span></div>${rows.length?rows.map(([n,a])=>{const b=BOOKS.find(x=>String(x[0])===n)||[n,"Book #"+n];const late=s==="out"&&a.due&&new Date(a.due)<new Date();
+   return `<div class="deskrow"><div><b>#${n} ${esc(b[1])}</b><div class="who" data-uid="${esc(a.uid)}"></div></div><div class="who">${s==="out"?`Due <span class="${late?"overdue":""}">${fmtDate(a.due)}</span>`:"Requested "+fmtDate(a.at)}</div><div class="row">${actions.map(x=>`<button class="btn ${x[2]||""} sm" type="button" data-desk="${x[0]}" data-no="${n}" data-uid="${esc(a.uid)}">${x[1]}</button>`).join("")}</div></div>`}).join(""):`<p class="note">Nothing here.</p>`}`;};
+ slot.innerHTML=`<div class="card libcard desk"><span class="tag">Registrar desk</span><h3>Library requests</h3><p>Visible only to staff with editor access.</p>
+  ${grp("requested","New requests: pull from the shelf",[["ready","Mark ready for pickup"],["cancel","Cancel","ghost"]])}
+  ${grp("ready","Waiting for pickup",[["out","Checked out"],["cancel","Cancel","ghost"]])}
+  ${grp("out","Checked out",[["returned","Returned"]])}</div>`;
+ slot.querySelectorAll(".who[data-uid]").forEach(el=>{el.textContent=who(el.dataset.uid);});
+}
+async function writeLoan(uid,no,patch){
+ const ref=LIBSTATE.db.doc("loans/"+uid);
+ const cur=JSON.parse(JSON.stringify(LIBSTATE.loans[uid]||{items:{}})); cur.items=cur.items||{};
+ if(patch===null) delete cur.items[no]; else cur.items[no]=Object.assign({},cur.items[no]||{},patch);
+ try{ await ref.set(cur); }catch(e){ alertBar(e&&e.code==="invalid_argument"?"You don't have permission to change that request.":"That didn't save. Please try again."); }
+}
+function alertBar(msg){const el=document.getElementById("bookCount"); if(el){el.textContent=msg; el.style.color="var(--bad)";}}
+function wireBooks(){
+ const q=document.getElementById("bookQ"),c=document.getElementById("bookCat");
+ q.value=LIBSTATE.q; c.value=LIBSTATE.filter;
+ q.addEventListener("input",()=>{LIBSTATE.q=q.value;renderBooks();});
+ c.addEventListener("change",()=>{LIBSTATE.filter=c.value;renderBooks();});
+ main.addEventListener("click",onBookClick);
+ renderBooks(); initLibrary();
+}
+async function onBookClick(e){
+ const r=e.target.closest("[data-req]"),x=e.target.closest("[data-cancel]"),d=e.target.closest("[data-desk]");
+ if(r){ const no=r.dataset.req; if(activeLoans()[no]) return; r.disabled=true; await writeLoan(LIBSTATE.me,no,{s:"requested",at:new Date().toISOString()}); }
+ if(x){ x.disabled=true; await writeLoan(LIBSTATE.me,x.dataset.cancel,null); }
+ if(d){ d.disabled=true; const no=d.dataset.no,uid=d.dataset.uid,now=new Date();
+  if(d.dataset.desk==="ready") await writeLoan(uid,no,{s:"ready",readyAt:now.toISOString()});
+  if(d.dataset.desk==="out"){ const due=new Date(now.getTime()+LOAN_DAYS*864e5); await writeLoan(uid,no,{s:"out",outAt:now.toISOString(),due:due.toISOString()}); }
+  if(d.dataset.desk==="returned") await writeLoan(uid,no,{s:"returned",returnedAt:now.toISOString()});
+  if(d.dataset.desk==="cancel") await writeLoan(uid,no,{s:"cancelled",cancelledAt:now.toISOString()}); }
+}
+let libInit=false;
+async function initLibrary(){
+ if(libInit){ return; } libInit=true;
+ try{
+  const [db,user]=await Promise.all([window.claude?.use?.("db"),window.claude?.use?.("user")]);
+  LIBSTATE.db=db||null; LIBSTATE.user=user||null;
+  if(user){ const me=await user.me(); LIBSTATE.me=me.id; LIBSTATE.staff=!!me.canEdit; const cw=await user.can("data.write"); LIBSTATE.canWrite=cw!==false; }
+  if(db){ LIBSTATE.unsub=db.collection("loans").onSnapshot(snap=>{const m={}; snap.docs.forEach(d=>{m[d.id]=d.data();}); LIBSTATE.loans=m; LIBSTATE.ready=true; renderBooks();},err=>{LIBSTATE.ready=true; renderBooks();}); }
+ }catch(e){}
+ LIBSTATE.ready=true; renderBooks();
+}
+
+VIEWS.physics=()=>`
+ ${head("Student Resources · DMS 100 · SPI preparation","Physics Review","CURE's interactive SPI physics review: every chapter of ultrasound physics with search, practice questions, flashcards, interactive labs and formula drills. Your progress is saved on the device you study on.")}
+ <a class="card libcard" href="physics/spi-review.html" data-page="physics/spi-review.html" data-title="CURE Interactive Physics: SPI Review" style="padding:24px">
+  <span class="tag">Start here</span>
+  <h3 style="font-size:1.6rem">CURE Interactive Physics: SPI Review</h3>
+  <p>16 chapters from Sound vs. Ultrasound through Bioeffects and current ARDMS topics, with chapter search and a "mark complete" tracker.</p>
+  <div class="meta">${["600 practice questions","Flashcards","Interactive labs","SPI blueprint","Formula mastery","Conversions","Glossary","Registry pearls","SPI traps","Mock SPI exam"].map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+ </a>
+ <div class="group-title"><h3>More physics practice</h3></div>
+ <div class="grid">
+  <a class="card" href="physics/doppler.html" data-page="physics/doppler.html" data-title="All About Doppler"><span class="tag">Interactive review</span><h3>All About Doppler</h3><p>Doppler equation, angles, aliasing and spectral analysis, step by step.</p></a>
+  ${[1,2,3,4].map(n=>`<a class="card" href="physics/review-${n}.html" data-page="physics/review-${n}.html" data-title="SPI Physics Review, Part ${n}"><span class="tag">SPI review</span><h3>SPI Physics Review, Part ${n}</h3><p>Self check questions with instant feedback.</p></a>`).join("")}
+ </div>
+ <div class="group-title"><h3>Quick calculators</h3><span>Check your math while you study</span></div>
+ <div class="grid">
+   <div class="card calc"><h3>Wavelength</h3><span class="formula">λ (mm) = 1.54 ÷ f (MHz)</span><label for="cWl">Frequency (MHz)<input id="cWl" type="number" value="5" min="0.1" step="0.1"></label><div class="out" id="oWl"></div></div>
+   <div class="card calc"><h3>Range equation</h3><span class="formula">depth (cm) = time (µs) ÷ 13</span><label for="cRt">Go return time (µs)<input id="cRt" type="number" value="65" min="0" step="1"></label><div class="out" id="oRt"></div></div>
+   <div class="card calc"><h3>Axial resolution</h3><span class="formula">LARRD (mm) = cycles × λ ÷ 2</span><div class="row" style="flex-wrap:nowrap"><label for="cAf" style="flex:1">Frequency (MHz)<input id="cAf" type="number" value="5" min="0.1" step="0.1"></label><label for="cAc" style="flex:1">Cycles<input id="cAc" type="number" value="2" min="1" step="1"></label></div><div class="out" id="oAx"></div></div>
+   <div class="card calc"><h3>Doppler shift and Nyquist</h3><span class="formula">Δf = 2 f₀ v cosθ ÷ c · Nyquist = PRF ÷ 2</span><div class="row" style="flex-wrap:nowrap"><label for="cDf" style="flex:1">f₀ (MHz)<input id="cDf" type="number" value="4" step="0.1"></label><label for="cDv" style="flex:1">v (cm/s)<input id="cDv" type="number" value="100" step="1"></label></div><div class="row" style="flex-wrap:nowrap"><label for="cDa" style="flex:1">Angle (°)<input id="cDa" type="number" value="60" min="0" max="90" step="1"></label><label for="cDp" style="flex:1">PRF (kHz)<input id="cDp" type="number" value="5" step="0.1"></label></div><div class="out" id="oDp"></div></div>
+   <div class="card calc"><h3>Attenuation</h3><span class="formula">dB = 0.5 × f (MHz) × path (cm)</span><div class="row" style="flex-wrap:nowrap"><label for="cTf" style="flex:1">Frequency (MHz)<input id="cTf" type="number" value="3" step="0.1"></label><label for="cTd" style="flex:1">Path (cm)<input id="cTd" type="number" value="10" step="0.5"></label></div><div class="out" id="oAt"></div></div>
+ </div>
+ <div class="row"><a class="btn" href="#prepry">More SPI practice in Prepry</a><a class="btn ghost sm" href="#books">Borrow Edelman, Kremkau or an SPI review book</a>${docBtn("DMS 100 syllabus",syl("DMS 100"),"DMS 100 Ultrasound Physics & Instrumentation Syllabus")}</div>`;
+function wirePhysics(){
+ const v=id=>parseFloat(document.getElementById(id)?.value);
+ const set=(id,t)=>{const o=document.getElementById(id); if(o) o.textContent=t;};
+ const fmt=(n,d)=>isFinite(n)?n.toFixed(d):"enter a value";
+ const run=()=>{set("oWl","λ = "+fmt(1.54/v("cWl"),3)+" mm");set("oRt","Depth = "+fmt(v("cRt")/13,2)+" cm");
+  set("oAx","SPL = "+fmt(v("cAc")*1.54/v("cAf"),3)+" mm · axial resolution = "+fmt(v("cAc")*1.54/v("cAf")/2,3)+" mm");
+  const f0=v("cDf")*1e6,vel=v("cDv")/100,th=v("cDa")*Math.PI/180,prf=v("cDp")*1000;const df=2*f0*vel*Math.cos(th)/1540,ny=prf/2;
+  set("oDp","Δf = "+fmt(df/1000,2)+" kHz · Nyquist = "+fmt(ny/1000,2)+" kHz"+(isFinite(df)&&df>ny?" · ALIASING":""));
+  set("oAt","Attenuation = "+fmt(0.5*v("cTf")*v("cTd"),1)+" dB");};
+ document.querySelectorAll(".calc input").forEach(i=>i.addEventListener("input",run)); run();
+ let score=0;
+ document.querySelectorAll(".quiz-q").forEach(qq=>qq.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+  if(qq.dataset.done) return; qq.dataset.done="1"; const ans=QUIZ[+qq.dataset.i][2],j=+b.dataset.j;
+  qq.querySelectorAll(".opt")[ans].classList.add("right"); if(j!==ans) b.classList.add("wrong"); else score++;
+  qq.querySelector(".why").hidden=false; set("qScore",score+" / "+QUIZ.length);})));
+}
+
+VIEWS.prepry=()=>`
+ ${head("Student Resources · Registry exam prep","Prepry","Registry prep for ARDMS, CCI and ARRT: SPI, Abdomen, OB/GYN, Vascular, Echo, Breast and ARRT Sonography, with practice questions, video lessons and mock exams.")}
+ <div class="band gold"><span class="eyebrow" style="color:var(--on-gold)">CURE student offer</span><h3 style="font-size:2rem">30% off with code <span style="font-family:var(--mono);background:var(--lib-deep);color:#fff;padding:2px 10px;border-radius:8px;user-select:all">CURE30</span></h3><p>Enter the code at checkout on prepry.com. The discount does not apply to purchases in the app stores.</p><div class="row"><a class="btn" href="https://prepry.com/" target="_blank" rel="noopener">Go to prepry.com ↗</a><a class="btn ghost" href="https://app.prepry.com/" target="_blank" rel="noopener">Sign in to the app ↗</a>${docBtn("Student walkthrough guide","docs/prepry-walkthrough.pdf","Prepry Student Walkthrough")}</div></div>
+ <div class="grid">${[["Set up your exam","Sign in, choose your credentialing body and exam, and set your exam date. The date drives your countdown and study plan."],["Tutor Mode","Answer, see right away whether you were correct, and read the full explanation."],["Study Blocks","Work through small topic sets instead of the whole bank at once."],["Spaced repetition","Questions move from new to learning to mastered, so review time goes where you need it."],["Exam Simulator","Timed, blueprint aligned mock exams with no feedback until you submit."],["Stats and study plan","Find your weakest domain and let your exam date shape each week."]].map((s,i)=>`<div class="card"><span class="code">${String(i+1).padStart(2,"0")}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div>
+ <p class="note">CURE does not endorse any single registry prep resource. ARRT®, ARDMS® and CCI® are registered trademarks of their owners; Prepry is not affiliated with or endorsed by them. Clinical site staff who precept CURE students can request free instructor access through Externship Support.</p>`;
+
+VIEWS.protocols=()=>{const groups=[...new Set(PROTOCOLS.map(p=>p[0]))];return `
+ ${head("CURE scanning lab","Protocols","CURE's official scanning protocols, released by the Program Director. Use them in lab, for scan outs and at your externship site. Each one opens in the reader.")}
+ <div class="filters" id="protoFilter">${["All"].concat(groups).map((g,i)=>`<button class="fbtn" type="button" data-g="${esc(g)}" aria-pressed="${i===0}">${esc(g)}</button>`).join("")}</div>
+ ${groups.map(g=>`<div class="proto-group" data-g="${esc(g)}"><div class="group-title"><h3>${esc(g)}</h3><span>${PROTOCOLS.filter(p=>p[0]===g).length} protocols</span></div><div class="grid">${PROTOCOLS.filter(p=>p[0]===g).map(p=>`<div class="card" data-search="${esc((p[1]+" "+p[2].join(" ")+" "+g+" protocol").toLowerCase())}"><div class="row">${p[2].map(c=>`<span class="code">${c}</span>`).join("")}</div><h3>${esc(p[1])}</h3><span class="hours">${p[4]?p[4]+" pages":"Final version being posted"}</span><div class="meta">${protoBtn(p,"Open protocol","")}</div></div>`).join("")}</div></div>`).join("")}
+ <div class="band line"><span class="eyebrow">Still being finalized</span><h3>Protocols not yet released</h3><p class="note" style="font-size:.95rem">${PROTO_PENDING.map(x=>`${x[1]} (${x[0]})`).join(" · ")}. Until these are posted, follow the protocol your instructor gives you in lab.</p></div>
+ <p class="note">Protocols are CURE teaching documents for enrolled students and clinical partners. Questions go to the Program Director at ${mail("siham@cure.edu")}.</p>`;};
+
+VIEWS.credentialing=()=>`
+ ${head("Registry pathways","My Registry Pathway","Your registry route is set by your highest completed level of education. Pick yours to see the steps in CURE's pathway documents.")}
+ <div class="filters" id="pathPick">${Object.entries(PATHS).map(([k,p],i)=>`<button class="fbtn" type="button" data-k="${k}" aria-pressed="${i===0}">${esc(p.label)}</button>`).join("")}</div>
+ <div class="card" id="pathCard"></div>
+ <div class="grid">${extCard("ARDMS","https://www.ardms.org/","American Registry for Diagnostic Medical Sonography: SPI and specialty exams, prerequisites and application.",["registry"])}${extCard("CCI","https://www.cci-online.org/","Cardiovascular Credentialing International: RCS and RVS exams and qualification prerequisites.",["registry"])}${extCard("ARRT","https://www.arrt.org/","American Registry of Radiologic Technologists: Sonography and Vascular Sonography credentials.",["registry"])}</div>
+ <div class="callout">CURE's pathway documents are dated November 2022. Registries change their rules at their own discretion, so confirm current prerequisites on the registry's site before you apply. Exam scheduling and fees are the student's responsibility.</div>`;
+function renderPath(k){const p=PATHS[k],c=document.getElementById("pathCard"); if(!c) return;
+ c.innerHTML=`<div class="row" style="justify-content:space-between"><div><span class="tag teal">${p.track}</span><h3 style="font-size:1.4rem;margin-top:6px">${esc(p.label)} → ${esc(p.registry)}</h3></div><div class="row">${docBtn("Pathway sheet",p.doc,p.track+" Pathway to Registry")}${docBtn("Student acknowledgment",p.ack,p.track+" Student Acknowledgment")}</div></div><div class="path-steps">${p.steps.map((s,i)=>`<div class="step ${s[2]?"opt":""}"><span class="dot">${s[2]?"+":i+1}</span><div><b>${esc(s[0])}</b><p>${esc(s[1])}</p></div></div>`).join("")}</div>`;}
+
+
+VIEWS.calendar=()=>`
+ ${head("CURE Academic Calendar 2026 to 2027","Calendar and Events","Campus closures, recesses, the day classes resume, and campus events. Closures are subject to change; if the campus closes unexpectedly, for example for snow, the hours must be made up and you will be notified in advance.")}
+ <div class="filters" id="calFilter">${[["upcoming","Upcoming"],["all","All of 2026 to 2027"],["closed","Closures and recesses"],["event","Events"]].map((x,i)=>`<button class="fbtn" type="button" data-f="${x[0]}" aria-pressed="${i===0}">${x[1]}</button>`).join("")}</div>
+ <div id="calList"></div>
+ <div class="callout"><b>Make up days.</b> If the campus is closed for any unforeseen reason, those hours must be made up. Make up days are scheduled by the Director of Education, Program Director and/or Registrar, may fall on any weekday from 8am to 5pm (including dates shown as closures), and attendance is required.</div>
+ <p class="note">Questions about the calendar go to the Registrar at ${mail("desirae@cure.edu")}. Calendar last updated January 2, 2026.</p>`;
+function renderCal(f){const el=document.getElementById("calList"); if(!el) return; const t=todayISO();
+ let list=EVENTS.slice().sort((a,b)=>a[0].localeCompare(b[0]));
+ if(f==="upcoming") list=list.filter(e=>(e[1]||e[0])>=t);
+ if(f==="closed") list=list.filter(e=>["closed","noclass"].includes(e[3])&&(e[1]||e[0])>=t);
+ if(f==="event") list=list.filter(e=>["event","aware"].includes(e[3])&&(e[1]||e[0])>=t);
+ const months={}; list.forEach(e=>{const k=e[0].slice(0,7);(months[k]=months[k]||[]).push(e);});
+ el.innerHTML=Object.keys(months).length?Object.entries(months).map(([k,es])=>`<div class="group-title"><h3>${pd(k+"-01").toLocaleDateString("en-US",{month:"long",year:"numeric"})}</h3></div><div class="evlist">${es.map(evRow).join("")}</div>`).join(""):`<p class="note">Nothing scheduled in this view.</p>`;}
+
+VIEWS.clinical=()=>`
+ ${head("CLE 100 · Quarters 6 to 8","Clinical Externship","900 clock hours at an affiliated site within 60 miles of campus, matched to your registry pathway. These are the rules students ask about most; the full handbook has everything.")}
+ <div class="row">${docBtn("Read the Clinical Externship Handbook","docs/clinical-externship-handbook.pdf","CURE Student Guide & Clinical Externship Handbook","gold")}${docBtn("CLE 100 syllabus",syl("CLE 100"),"CLE 100 Clinical Externship Syllabus")}</div>
+ <div class="grid">
+  <div class="card"><span class="tag teal">Clearance</span><h3>Before you go</h3><ul class="clean"><li>All didactic hours met and every class passed</li><li>Scanning proficiency confirmed</li><li>Financial aid and tuition current</li><li>TB test, flu shot, drug screen, titers and physical on file</li></ul></div>
+  <div class="card"><span class="tag orange">Hours</span><h3>Schedule and attendance</h3><ul class="clean"><li>24 hours per week minimum, 30 maximum</li><li>100% of 900 hours required; missed time extends your rotation day for day</li><li>No vacations during externship</li><li>14 consecutive days absent results in dismissal</li></ul></div>
+  <div class="card"><span class="tag violet">Logs</span><h3>Clinical log rules</h3><ul class="clean"><li>Blue or black ink only, nothing prefilled</li><li>Supervisor initials daily and signs weekly</li><li>Submit one PDF by 9:00 am Monday; photos are rejected</li><li>Drop originals at the Registrar every 4 to 6 weeks</li></ul></div>
+  <div class="card"><span class="tag gold">Absences</span><h3>If you are sick or late</h3><ul class="clean"><li>Notify your site supervisor, Externship Support and the Registrar in writing</li><li>Medical absences need signed documentation</li><li>Lateness is logged and never credited</li></ul></div>
+  <div class="card"><span class="tag teal">Conduct</span><h3>Never at a site</h3><ul class="clean"><li>Visible phones, photos or video of any kind</li><li>Interrupting or leaving an exam once it starts</li><li>Out of uniform: CURE black scrubs, closed medical shoes</li><li>Social media posts from the facility</li></ul></div>
+  <div class="card"><span class="tag orange">Finish</span><h3>Exit process</h3><ul class="clean"><li>Turn in remaining original logs to the Registrar</li><li>Student Accounts, Financial Aid exit counseling, Career Services exit interview</li><li>Graduation documents are released together in 2 to 4 weeks</li></ul></div>
+ </div>
+ <div class="group-title"><h3>Clinical contacts</h3></div>
+ <div class="grid">${[PEOPLE[1],PEOPLE[0],PEOPLE[4],PEOPLE[5]].map(personCard).join("")}</div>
+ <div class="band navy"><span class="eyebrow" style="color:var(--gold)">Clinical affiliates</span><h3>Site supervisors</h3><p>Each quarter you will receive a clinical assessment for every CURE extern. Questions about a student go to Leigh DeWitt, Externship Support, at ${mail("leigh@cure.edu")} or (845) 467‑7217.</p></div>
+ <p class="note">Handbook edition: 2023. Where a newer CURE policy differs, the newer policy controls.</p>`;
+
+VIEWS.careers=()=>`
+ ${head("Career outlook","Careers","Sonography is one of the fastest growing health careers. Figures below are national, from the U.S. Bureau of Labor Statistics.")}
+ <div class="stats"><div class="stat"><b>14%</b><span>projected job growth, 2025 to 2035</span></div><div class="stat"><b>$96,590</b><span>median annual pay, May 2025</span></div><div class="stat"><b>~6,000</b><span>openings projected each year</span></div><div class="stat"><b>92,200</b><span>sonographer jobs in 2025</span></div></div>
+ <p class="note">Source: <a href="https://www.bls.gov/ooh/healthcare/diagnostic-medical-sonographers.htm" target="_blank" rel="noopener">BLS Occupational Outlook Handbook, Diagnostic Medical Sonographers</a>. Pay varies by region, specialty and experience.</p>
+ <div class="grid">${extCard("CURE Sonography Careers","https://cure-careers.github.io","CURE's job board for students and graduates: openings nationwide, new grad friendly filters, resume builder and career toolkit.",["CURE","jobs"])}${extCard("BLS state and area pay data","https://www.bls.gov/oes/current/oes292032.htm","Wage estimates for sonographers by state and metro area.",["data"])}${extCard("CareerOneStop","https://www.careeronestop.org/","U.S. Department of Labor career exploration and local job search.",["data"])}</div>
+ <div class="grid">${[PEOPLE[2],PEOPLE[3]].map(personCard).join("")}</div>`;
+
+VIEWS.refer=()=>`
+ ${head("Share CURE","Refer a Friend","Know someone who would make a great sonographer? Fill this in and your referral goes straight to CURE Admissions.")}
+ <div class="grid two">
+  <form class="card form" id="referForm" novalidate>
+   <div class="two"><label for="rfName">Friend's name<input id="rfName" required></label><label for="rfContact">Friend's phone or email<input id="rfContact" required></label></div>
+   <label for="rfInterest">Interested in<select id="rfInterest"><option>Diagnostic Medical Sonography</option><option>Vascular Technology</option><option>Echocardiography</option><option>Not sure yet</option></select></label>
+   <div class="two"><label for="rfYou">Your name<input id="rfYou" required></label><label for="rfRole">You are a<select id="rfRole"><option>Current student</option><option>Graduate</option><option>Clinical site staff</option><option>Employer</option><option>Other</option></select></label></div>
+   <label for="rfNote">Anything admissions should know<textarea id="rfNote" rows="3"></textarea></label>
+   <button class="btn gold" type="submit">Email this referral to Admissions</button>
+   <p class="note" id="rfErr" hidden>Add your friend's name, their phone or email, and your name.</p>
+   <div id="rfOut" hidden><p class="note">Your email app should open with the referral filled in. If it doesn't, copy the message and send it to ${mail("admissions@cure.edu")}.</p><div class="copybox" id="rfText"></div><div class="row" style="margin-top:10px"><button class="btn sm" type="button" id="rfCopy">Copy message</button><span class="note" id="rfCopied" hidden>Copied</span></div></div>
+  </form>
+  <div style="display:grid;gap:16px;align-content:start">
+   <div class="card person"><span class="tag gold">Admissions office</span><h3>CURE Admissions</h3><a href="mailto:admissions@cure.edu">admissions@cure.edu</a><span class="note">(914) 448‑2873</span></div>
+   ${personCard(PEOPLE[6])}${personCard(PEOPLE[7])}
+   <p class="note">Please get your friend's permission before sharing their contact details.</p>
+  </div>
+ </div>`;
+function wireRefer(){
+ const f=document.getElementById("referForm"); if(!f) return;
+ f.addEventListener("submit",e=>{e.preventDefault(); const g=id=>document.getElementById(id).value.trim();
+  if(!g("rfName")||!g("rfContact")||!g("rfYou")){document.getElementById("rfErr").hidden=false;return;}
+  document.getElementById("rfErr").hidden=true;
+  const t=`Friend: ${g("rfName")}\nContact: ${g("rfContact")}\nInterested in: ${g("rfInterest")}\nReferred by: ${g("rfYou")} (${g("rfRole")})${g("rfNote")?"\nNotes: "+g("rfNote"):""}`;
+  document.getElementById("rfText").textContent=t; document.getElementById("rfOut").hidden=false;
+  const a=document.createElement("a"); a.href="mailto:admissions@cure.edu?cc="+encodeURIComponent("aldwyn@cure.edu,nicholas@cure.edu")+"&subject="+encodeURIComponent("CURE referral: "+g("rfName"))+"&body="+encodeURIComponent(t); a.click();
+ });
+ document.getElementById("rfCopy").addEventListener("click",()=>{const el=document.getElementById("rfText"),t=el.textContent;
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);};
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(()=>{document.getElementById("rfCopied").hidden=false;}).catch(sel); else sel();});
+}
+
+/* ---------- READ ONLY DOCUMENT READER ---------- */
+const reader=document.getElementById("reader"), rBody=document.getElementById("readerBody");
+let rDoc=null,rScale=1.3,rToken=0,lastFocus=null;
+if(window.pdfjsLib){ pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; }
+async function renderAll(){
+ const tok=++rToken; rBody.innerHTML=""; if(!rDoc) return;
+ const w=Math.min(rBody.clientWidth-32,1000);
+ for(let n=1;n<=rDoc.numPages;n++){ if(tok!==rToken) return;
+  const page=await rDoc.getPage(n),base=page.getViewport({scale:1}); const fit=(w/base.width)*rScale/1.3,dpr=Math.min(window.devicePixelRatio||1,2);
+  const vp=page.getViewport({scale:fit*dpr}),cv=document.createElement("canvas"); cv.width=vp.width; cv.height=vp.height; cv.style.width=(vp.width/dpr)+"px"; cv.setAttribute("aria-label","Page "+n);
+  rBody.appendChild(cv); await page.render({canvasContext:cv.getContext("2d"),viewport:vp}).promise; }
+}
+async function openDoc(file,title){
+ lastFocus=document.activeElement; reader.hidden=false; document.body.style.overflow="hidden";
+ document.getElementById("readerTitle").textContent=title; document.getElementById("readerPg").textContent="";
+ rBody.innerHTML='<p class="reader-msg">Opening…</p>'; rScale=1.3; document.getElementById("readerClose").focus();
+ if(!window.pdfjsLib){rBody.innerHTML='<p class="reader-msg">The document reader could not load. Check your connection and try again.</p>';return;}
+ try{ const data=await (await fetch(file)).arrayBuffer(); rDoc=await pdfjsLib.getDocument({data}).promise;
+  document.getElementById("readerPg").textContent=rDoc.numPages+(rDoc.numPages===1?" page":" pages"); await renderAll();
+ }catch(e){ rBody.innerHTML='<p class="reader-msg">This document could not be opened. Please tell the Program Director\'s office.</p>'; }
+}
+function closeDoc(){ rToken++; reader.hidden=true; rBody.innerHTML=""; rDoc=null; document.body.style.overflow=""; if(lastFocus) lastFocus.focus(); }
+document.getElementById("readerClose").addEventListener("click",closeDoc);
+document.getElementById("zoomIn").addEventListener("click",()=>{rScale=Math.min(rScale+0.25,3);renderAll();});
+document.getElementById("zoomOut").addEventListener("click",()=>{rScale=Math.max(rScale-0.25,0.6);renderAll();});
+reader.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{ if(!reader.hidden){ if(e.key==="Escape") closeDoc(); if((e.ctrlKey||e.metaKey)&&["s","p"].includes(e.key.toLowerCase())) e.preventDefault(); }});
+document.addEventListener("click",e=>{const a=e.target.closest("[data-page]"); if(!a) return; e.preventDefault(); const pv=document.getElementById("pageview"); document.getElementById("pvTitle").textContent=a.dataset.title||""; document.getElementById("pvFrame").src=a.dataset.page; pv.hidden=false; document.body.style.overflow="hidden";});
+document.getElementById("pvClose").addEventListener("click",()=>{document.getElementById("pageview").hidden=true; document.getElementById("pvFrame").src="about:blank"; document.body.style.overflow="";});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("pageview").hidden) document.getElementById("pvClose").click();});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-doc]"); if(b){e.preventDefault(); openDoc(b.dataset.doc,b.dataset.title);}});
+
+/* ---------- HERO ---------- */
+function heroHTML(){return `<section class="hero"><div class="wrap hero-in"><div><span class="eyebrow">The CURE Center for Ultrasound Research &amp; Education</span><h1><span class="welcome">Welcome</span><span class="welcome-sub">to the Student Resource Portal</span></h1><p class="tagline">See deeper. <em>Scan with confidence.</em></p><p class="lede">The resource hub for CURE students, graduates, clinical partners and employers. Diagnostic Medical Sonography, Vascular Technology and Echocardiography.</p><div class="quick"><a class="q q2" href="#library">Student Resources ›</a><a class="q q3" href="#books">Borrow Books ›</a><a class="q q4" href="#credentialing">My Registry Pathway ›</a><a class="q q1" href="#refer">Refer a Friend ›</a></div></div><figure class="scan"><canvas class="beam" id="beam" width="880" height="704" aria-hidden="true"></canvas><figcaption>Live B mode sweep</figcaption></figure></div></section>`;}
+let beamRAF=0;
+function drawBeam(){
+ cancelAnimationFrame(beamRAF);
+ const cv=document.getElementById("beam"); if(!cv) return; const x=cv.getContext("2d"),W=cv.width,H=cv.height;
+ const cs=getComputedStyle(document.documentElement); const lib=cs.getPropertyValue("--lib").trim()||"#8A2B3D"; const gold=cs.getPropertyValue("--gold").trim()||"#FFB81C",orange=cs.getPropertyValue("--orange").trim()||"#FF6A2B",teal=cs.getPropertyValue("--teal").trim()||"#00A6B8";
+ const hexA=(h,a)=>{h=h.replace("#","");const n=parseInt(h.length===3?h.split("").map(c=>c+c).join(""):h,16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;};
+ const ox=W/2,oy=28,R=H-40,a0=Math.PI/2-0.62,a1=Math.PI/2+0.62,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+ const dots=[]; for(let i=0;i<2600;i++) dots.push([60+rnd()*(R-60),a0+rnd()*(a1-a0),rnd()]);
+ const blobs=[[0.55,-0.18,70],[0.72,0.2,46],[0.38,0.12,30]]; let t=0;
+ (function frame(){
+  if(!document.body.contains(cv)) return;
+  x.clearRect(0,0,W,H); x.save(); x.beginPath(); x.moveTo(ox,oy); x.arc(ox,oy,R,a0,a1); x.closePath();
+  const gr=x.createRadialGradient(ox,oy,10,ox,oy,R); gr.addColorStop(0,"#2B6F94"); gr.addColorStop(1,"#081A27"); x.fillStyle=gr; x.fill(); x.strokeStyle="rgba(159,211,242,.55)"; x.lineWidth=3; x.stroke(); x.clip();
+  for(const [r,a,s] of dots){x.fillStyle=`rgba(234,240,255,${0.10+0.5*s*(1-r/R*0.6)})`; x.fillRect(ox+Math.cos(a)*r,oy+Math.sin(a)*r,2.2,2.2);}
+  for(const b of blobs){const r=b[0]*R,a=Math.PI/2+b[1]; x.beginPath(); x.ellipse(ox+Math.cos(a)*r,oy+Math.sin(a)*r,b[2]*1.3,b[2],0.3,0,Math.PI*2); x.fillStyle="rgba(5,12,31,.75)"; x.fill(); x.strokeStyle="rgba(255,255,255,.55)"; x.lineWidth=3; x.stroke();}
+  const sw=a0+(a1-a0)*((Math.sin(t)+1)/2),lg=x.createLinearGradient(ox,oy,ox+Math.cos(sw)*R,oy+Math.sin(sw)*R); lg.addColorStop(0,hexA(orange,.95)); lg.addColorStop(1,hexA(orange,0));
+  x.strokeStyle=lg; x.lineWidth=4; x.beginPath(); x.moveTo(ox,oy); x.lineTo(ox+Math.cos(sw)*R,oy+Math.sin(sw)*R); x.stroke(); x.restore();
+  x.fillStyle=cs.getPropertyValue("--muted").trim()||"#5F5A50"; x.font="600 20px 'JetBrains Mono', monospace";
+  for(let cm=0;cm<=16;cm+=4){const r=60+(R-60)*cm/16,px=ox+Math.cos(a1)*r,py=oy+Math.sin(a1)*r; x.fillRect(px-14,py,10,2); if(cm) x.fillText(cm,px-50,py+7);}
+  x.fillStyle=gold; x.beginPath(); x.arc(ox,oy,9,0,Math.PI*2); x.fill();
+  if(!reduce){t+=0.012; beamRAF=requestAnimationFrame(frame);} })();
+}
+
+/* ---------- STYLE PICKER ---------- */
+const root=document.documentElement;
+function applyStyle(){const p="yale",f="franklin";
+ if(p==="yale") root.removeAttribute("data-palette"); else root.setAttribute("data-palette",p);
+ if(f==="franklin") root.removeAttribute("data-font"); else root.setAttribute("data-font",f);
+ document.querySelectorAll("#palettes .sw").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===p)));
+ document.querySelectorAll("#fonts .fontopt").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.f===f)));
+ if(document.getElementById("beam")) drawBeam();}
+document.getElementById("palettes").innerHTML=PALETTES.map(p=>`<button class="sw" type="button" data-p="${p[0]}"><i>${p[2].map(c=>`<b style="background:${c}"></b>`).join("")}</i>${p[1]}</button>`).join("");
+document.getElementById("fonts").innerHTML=FONTS.map(f=>`<button class="fontopt" type="button" data-f="${f[0]}"><strong style="font-family:${f[3]},sans-serif">${f[1]}</strong><span>${f[2]}</span></button>`).join("");
+document.getElementById("palettes").addEventListener("click",e=>{const b=e.target.closest(".sw"); if(b){store.set("cure.palette2",b.dataset.p); applyStyle();}});
+document.getElementById("fonts").addEventListener("click",e=>{const b=e.target.closest(".fontopt"); if(b){store.set("cure.font3",b.dataset.f); applyStyle();}});
+const sp=document.getElementById("stylePanel"),sb=document.getElementById("styleBtn");
+sb.addEventListener("click",()=>{sp.hidden=!sp.hidden; sb.setAttribute("aria-expanded",String(!sp.hidden));});
+document.getElementById("styleClose").addEventListener("click",()=>{sp.hidden=true; sb.setAttribute("aria-expanded","false");});
+applyStyle();
+
+/* ---------- ROUTER ---------- */
+const tabsEl=document.getElementById("tabs"),main=document.getElementById("main"),heroSlot=document.getElementById("heroSlot");
+tabsEl.innerHTML=`<a class="tab" href="#home" data-tab="home">Home</a>${TOP_TABS.map(t=>`<a class="tab" href="#${t[0]}" data-tab="${t[0]}">${t[1]}</a>`).join("")}<div class="tabgroup" role="group" aria-label="Student Resources"><span>Student Resources</span>${STUDENT_TABS.map(t=>`<a class="tab" href="#${t[0]}" data-tab="${t[0]}">${t[1]}</a>`).join("")}</div>${OTHER_TABS.map(t=>`<a class="tab" href="#${t[0]}" data-tab="${t[0]}">${t[1]}</a>`).join("")}`;
+function bindFilter(id,fn){const w=document.getElementById(id); if(!w) return; w.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{w.querySelectorAll(".fbtn").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); fn(b);}));}
+function show(id){
+ if(!VIEWS[id]) id="home";
+ main.removeEventListener("click",onBookClick);
+ tabsEl.querySelectorAll(".tab").forEach(a=>{if(a.dataset.tab===id)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+ const zone=ZONE.has(id); document.body.classList.toggle("zone-lib",zone);
+ heroSlot.innerHTML=id==="home"?heroHTML():zone?`<div class="zone-head"><div class="wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2.5Z"/><path d="M8 7h7M8 11h7"/></svg><b>CURE Student Resources</b><span>Learning resources available to every enrolled student, on campus and online</span></div></div>`:"";
+ main.innerHTML=`<section class="view" id="view-${id}">${VIEWS[id]()}</section>`;
+ if(id==="home") drawBeam();
+ if(id==="courses"){const q=store.get("cure.quarter",0); document.querySelector(`#qfilter [data-q="${q}"]`).setAttribute("aria-pressed","true"); renderCourses(q); bindFilter("qfilter",b=>{store.set("cure.quarter",+b.dataset.q); renderCourses(+b.dataset.q);});}
+ if(id==="library") bindFilter("libFilter",b=>{const t=b.dataset.t; document.querySelectorAll("#view-library .lib-grid .card").forEach(c=>{c.hidden=!(t==="All"||c.dataset.search.includes(t.toLowerCase()));});});
+ if(id==="books") wireBooks();
+ if(id==="physics") wirePhysics();
+ if(id==="credentialing"){renderPath("hsd"); bindFilter("pathPick",b=>renderPath(b.dataset.k));}
+ if(id==="refer") wireRefer();
+ if(id==="calendar"){renderCal("upcoming"); bindFilter("calFilter",b=>renderCal(b.dataset.f));}
+ if(id==="protocols") bindFilter("protoFilter",b=>{const g=b.dataset.g; document.querySelectorAll("#view-protocols .proto-group").forEach(el=>{el.hidden=!(g==="All"||el.dataset.g===g);});});
+ const act=tabsEl.querySelector('[aria-current="page"]'); if(act) act.scrollIntoView({block:"nearest",inline:"center"});
+ const q=document.getElementById("q").value; if(q) applySearch(q);
+}
+function applySearch(q){q=q.trim().toLowerCase(); if(document.getElementById("bookQ")){LIBSTATE.q=q; document.getElementById("bookQ").value=q; renderBooks(); return;} main.querySelectorAll("[data-search]").forEach(c=>{c.hidden=!!q&&!c.dataset.search.includes(q);});}
+document.getElementById("q").addEventListener("input",e=>{const v=e.target.value,cur=(location.hash||"#home").slice(1);
+ if(v&&(cur==="home"||!VIEWS[cur])){const lv=v.toLowerCase(); if(COURSES.some(c=>(c[1]+" "+c[2]).toLowerCase().includes(lv))) location.hash="courses"; else if(BOOKS.some(b=>(b[1]+" "+b[2]).toLowerCase().includes(lv))) location.hash="books"; else location.hash="library"; return;}
+ applySearch(v);});
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+root.removeAttribute("data-theme");
+(document.getElementById("themeBtn")||{addEventListener(){}}).addEventListener("click",()=>{const dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
+ const next=dark?"light":"dark"; root.setAttribute("data-theme",next); store.set("cure.theme",next);});
+show((location.hash||"").slice(1)||"home");
+loadAnn(); setInterval(loadAnn,5*60*1000);
+})();
+</script>
+
+</body></html>

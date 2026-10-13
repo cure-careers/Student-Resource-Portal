@@ -1,0 +1,504 @@
+<!doctype html><html lang="en"><head>
+<script>/* CURE portal guard: in-page anchors scroll instead of navigating; storage never throws */
+(function(){try{var t="__t";localStorage.setItem(t,t);localStorage.removeItem(t);}catch(e){var m={};var mem={getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}},key:function(i){return Object.keys(m)[i]||null},get length(){return Object.keys(m).length}};try{Object.defineProperty(window,"localStorage",{value:mem,configurable:true})}catch(_){}}
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=decodeURIComponent(a.getAttribute("href").slice(1));e.preventDefault();var el=id&&document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});},true);
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href");if(/^https?:/i.test(h)){a.target="_blank";a.rel="noopener";}},true);
+document.addEventListener("submit",function(e){e.preventDefault();},true);})();</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPI Physics Review Part 4</title><style>body{margin:0;font-family:system-ui,sans-serif}</style></head><body><div id="us-student">
+  <style>
+    #us-student{
+      --navy:#171052;
+      --navy2:#211765;
+      --gold:#d5a24d;
+      --peach:#facd99;
+      --cream:#fbf8f5;
+      --paper:#fffdfb;
+      --ink:#171052;
+      --muted:#625b7b;
+      --line:#efbd79;
+      --green:#567a53;
+      --red:#9a4141;
+      max-width:1050px;
+      margin:0 auto;
+      padding:16px;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--ink);
+      line-height:1.58;
+    }
+    #us-student *{box-sizing:border-box;}
+    #us-student .hero{
+      background:linear-gradient(135deg,var(--navy),var(--navy2));
+      color:#fff;
+      border:1px solid var(--gold);
+      border-radius:22px;
+      padding:28px;
+      margin:0 0 18px;
+      box-shadow:0 14px 34px rgba(23,16,82,.16);
+      position:relative;
+      overflow:hidden;
+    }
+    #us-student .hero:after{
+      content:"";
+      position:absolute;
+      width:210px;height:210px;
+      border-radius:50%;
+      right:-70px;top:-90px;
+      background:rgba(213,162,77,.16);
+    }
+    #us-student .eyebrow{
+      margin:0 0 8px;
+      color:#e4cf9f;
+      text-transform:uppercase;
+      letter-spacing:1.8px;
+      font-size:12px;
+      font-weight:800;
+    }
+    #us-student h1{margin:0;font-size:clamp(30px,5vw,46px);line-height:1.08;color:#fff;}
+    #us-student .hero-copy{margin:12px 0 0;max-width:760px;color:#f6f0e9;font-size:17px;}
+    #us-student .formula-strip{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    #us-student .formula-chip{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(213,162,77,.65);
+      color:#fff;
+      border-radius:999px;
+      padding:8px 13px;
+      font-weight:800;
+      font-size:14px;
+    }
+    #us-student .card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:21px;
+      margin:16px 0;
+      box-shadow:0 10px 26px rgba(23,16,82,.08);
+    }
+    #us-student .card h2{margin:0 0 10px;font-size:22px;color:var(--navy);}
+    #us-student .card h3{margin:0 0 8px;font-size:17px;color:var(--navy);}
+    #us-student .section-intro{margin:0 0 16px;color:var(--muted);}
+    #us-student .grid{display:grid;grid-template-columns:1fr;gap:16px;}
+    #us-student .grid.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+    #us-student .grid.three{grid-template-columns:repeat(3,minmax(0,1fr));}
+    #us-student .mini-card{
+      border:1px solid #ead7bd;
+      background:#fff;
+      border-radius:15px;
+      padding:16px;
+    }
+    #us-student .mini-card.peach{background:#fff4e8;}
+    #us-student .mini-card.navy{background:var(--navy);color:#fff;border-color:var(--navy);}
+    #us-student .mini-card.navy h3{color:#fff;}
+    #us-student .pill{
+      display:inline-block;
+      padding:5px 11px;
+      border-radius:999px;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.32);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      margin:8px 6px 0 0;
+      position:relative;
+      z-index:1;
+    }
+    #us-student .callout{
+      border-left:5px solid var(--gold);
+      background:#fde6cc;
+      padding:13px 15px;
+      border-radius:12px;
+      margin:12px 0;
+    }
+    #us-student .registry-tip{
+      background:#fff8df;
+      border:1px solid #e4c46b;
+      border-left:6px solid var(--gold);
+      border-radius:14px;
+      padding:15px 16px;
+      margin-top:16px;
+    }
+    #us-student .registry-tip strong{color:var(--navy);}
+    #us-student label{display:block;font-weight:800;margin-bottom:7px;}
+    #us-student input[type="range"]{width:100%;accent-color:var(--navy);}
+    #us-student .range-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px;}
+    #us-student .big{font-size:24px;font-weight:900;color:var(--navy);}
+    #us-student .sub{color:var(--muted);font-size:13px;margin-top:3px;}
+    #us-student .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+    #us-student .relationship{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      gap:12px;
+      align-items:center;
+      margin:16px 0;
+    }
+    #us-student .relationship .arrow{font-size:26px;font-weight:900;color:var(--gold);text-align:center;}
+    #us-student .metric{
+      text-align:center;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid #ead7bd;
+      background:#fff;
+    }
+    #us-student .metric .value{font-size:22px;font-weight:900;color:var(--navy);}
+    #us-student .canvasWrap{
+      border:1px solid #dcc9ab;
+      border-radius:18px;
+      background:linear-gradient(#fff,#fffaf4);
+      padding:10px;
+      overflow:hidden;
+    }
+    #us-student canvas{display:block;width:100%;height:auto;border-radius:14px;}
+    #us-student .hintRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:12px;}
+    #us-student button{
+      appearance:none;
+      border:1px solid var(--navy);
+      background:var(--navy);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+    }
+    #us-student button:hover{transform:translateY(-1px);}
+    #us-student button.secondary{background:#fff;color:var(--navy);border-color:var(--gold);}
+    #us-student .quizq{border-top:1px solid #ead7bd;padding-top:14px;margin-top:14px;border-radius:12px;}
+    #us-student .quizq:first-child{border-top:0;padding-top:0;margin-top:0;}
+    #us-student .choices label{
+      display:block;
+      padding:10px 12px;
+      border-radius:11px;
+      border:1px solid #e5d1b1;
+      margin:7px 0;
+      cursor:pointer;
+      background:#fff;
+      font-weight:600;
+    }
+    #us-student .choices label:hover{background:#fff7ef;}
+    #us-student .choices input{width:auto;margin-right:8px;}
+    #us-student .feedback{margin-top:7px;font-weight:800;font-size:13px;}
+    #us-student .correct{color:var(--green);}
+    #us-student .incorrect{color:var(--red);}
+    #us-student .result{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fde6cc;
+      font-weight:900;
+    }
+    #us-student ul{margin:8px 0 0;padding-left:20px;}
+    #us-student li{margin:7px 0;}
+    @media(max-width:760px){
+      #us-student .grid.two,#us-student .grid.three,#us-student .relationship{grid-template-columns:1fr;}
+      #us-student .relationship .arrow{transform:rotate(90deg);}
+      #us-student .hero{padding:23px 19px;}
+    }
+  </style>
+
+  <div class="hero">
+    <p class="eyebrow">CURE • SPI Physics Review • Interactive</p>
+    <h1>Frequency and Period in Ultrasound</h1>
+    <p class="hero-copy">Move the frequency slider and watch the wave change in real time. The marked bracket shows one complete period from one identical point on the wave to the next.</p>
+    <div class="formula-strip">
+      <span class="formula-chip mono">f = 1 ÷ T</span>
+      <span class="formula-chip mono">T = 1 ÷ f</span>
+      <span class="formula-chip">Higher f → Shorter T</span>
+    </div>
+    <div>
+      <span class="pill">MHz ↔ µs</span>
+      <span class="pill">Time-domain wave</span>
+      <span class="pill">One period marked</span>
+      <span class="pill">Self-check quiz</span>
+    </div>
+  </div>
+
+  <div class="grid three">
+    <div class="mini-card peach">
+      <h3>Frequency</h3>
+      <p><strong>Cycles per second</strong></p>
+      <p class="sub">Measured in hertz. Diagnostic ultrasound commonly uses megahertz.</p>
+    </div>
+    <div class="mini-card peach">
+      <h3>Period</h3>
+      <p><strong>Time for one complete cycle</strong></p>
+      <p class="sub">Measured in seconds or microseconds.</p>
+    </div>
+    <div class="mini-card navy">
+      <h3>Core Relationship</h3>
+      <p><strong>Frequency and period are reciprocals.</strong></p>
+      <p style="margin-bottom:0;">When one increases, the other decreases.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Explore the relationship</h2>
+    <p class="section-intro">Slide from 1 MHz to 15 MHz. As frequency rises, more cycles fit into the same time window and each individual cycle takes less time.</p>
+
+    <div class="grid two">
+      <div class="mini-card peach">
+        <label for="fSlider">Frequency (MHz)</label>
+        <input id="fSlider" type="range" min="1" max="15" step="0.1" value="5">
+        <div class="range-scale"><span>1 MHz</span><span>15 MHz</span></div>
+        <div class="hintRow">
+          <div>
+            <div class="big"><span id="fLabel"></span></div>
+            <div class="sub">More frequency means more cycles each second.</div>
+          </div>
+          <button class="secondary" type="button" id="resetBtn">Reset to 5 MHz</button>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="relationship">
+          <div class="metric">
+            <div class="sub">Frequency</div>
+            <div class="value" id="fMirror"></div>
+          </div>
+          <div class="arrow">↔</div>
+          <div class="metric">
+            <div class="sub">Period</div>
+            <div class="value mono" id="tLabel"></div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Calculation:</strong><br>
+          <span id="eqLine" class="mono"></span>
+        </div>
+        <div class="sub"><strong>Example:</strong> <span id="exampleLine" class="mono"></span></div>
+      </div>
+    </div>
+
+    <div class="registry-tip">
+      <strong>SPI Registry Tip:</strong> MHz naturally pairs with µs. Millions of cycles per second correspond to millionths of a second per cycle.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Live wave representation</h2>
+    <p class="section-intro">The horizontal axis represents time. The gold wave changes as the frequency slider moves. The red bracket identifies one complete period.</p>
+
+    <div class="canvasWrap" id="canvasWrap">
+      <canvas id="plot" width="940" height="460" role="img" aria-label="Interactive ultrasound frequency and period wave diagram"></canvas>
+    </div>
+
+    <div class="hintRow">
+      <div class="sub">The bracket spans from one identical point on the wave to the next identical point.</div>
+      <button type="button" class="secondary" id="toggleGridBtn">Hide grid</button>
+    </div>
+  </div>
+
+  <div class="grid two">
+    <div class="card">
+      <h2>What to notice</h2>
+      <ul>
+        <li>The horizontal axis is <strong>time</strong>.</li>
+        <li><strong>Frequency</strong> tells how many cycles occur each second.</li>
+        <li><strong>Period</strong> tells how long one cycle takes.</li>
+        <li>Higher frequency creates more tightly packed cycles.</li>
+        <li>Higher frequency produces a <strong>shorter period</strong>.</li>
+        <li>Lower frequency produces a <strong>longer period</strong>.</li>
+      </ul>
+      <div class="callout"><strong>Memory rule:</strong> f ↑ means T ↓, and f ↓ means T ↑.</div>
+    </div>
+
+    <div class="card">
+      <h2>Check your understanding</h2>
+      <div id="miniQuiz">
+        <div class="quizq" data-answer="b">
+          <p><strong>1)</strong> If frequency increases, period:</p>
+          <div class="choices">
+            <label><input type="radio" name="mq1" value="a"> Increases</label>
+            <label><input type="radio" name="mq1" value="b"> Decreases</label>
+            <label><input type="radio" name="mq1" value="c"> Stays the same</label>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="quizq" data-answer="c">
+          <p><strong>2)</strong> Which wave has the shorter period?</p>
+          <div class="choices">
+            <label><input type="radio" name="mq2" value="a"> Lower-frequency wave</label>
+            <label><input type="radio" name="mq2" value="b"> They are equal</label>
+            <label><input type="radio" name="mq2" value="c"> Higher-frequency wave</label>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="quizq" data-answer="a">
+          <p><strong>3)</strong> The red bracket labeled <strong>T</strong> represents:</p>
+          <div class="choices">
+            <label><input type="radio" name="mq3" value="a"> Time for one complete cycle</label>
+            <label><input type="radio" name="mq3" value="b"> Cycles per second</label>
+            <label><input type="radio" name="mq3" value="c"> Wave amplitude</label>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="quizq" data-answer="b">
+          <p><strong>4)</strong> A frequency of 5 MHz has a period of approximately:</p>
+          <div class="choices">
+            <label><input type="radio" name="mq4" value="a"> 5 µs</label>
+            <label><input type="radio" name="mq4" value="b"> 0.2 µs</label>
+            <label><input type="radio" name="mq4" value="c"> 2 µs</label>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="hintRow">
+          <button type="button" id="checkBtn">Check answers</button>
+          <button type="button" class="secondary" id="resetQuizBtn">Reset quiz</button>
+        </div>
+        <div id="quizResult" class="result" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.getElementById('us-student');
+  const canvas = root.querySelector('#plot');
+  const ctx = canvas.getContext('2d');
+  const wrap = root.querySelector('#canvasWrap');
+  const slider = root.querySelector('#fSlider');
+  const fLabel = root.querySelector('#fLabel');
+  const fMirror = root.querySelector('#fMirror');
+  const tLabel = root.querySelector('#tLabel');
+  const eqLine = root.querySelector('#eqLine');
+  const exampleLine = root.querySelector('#exampleLine');
+  const resetBtn = root.querySelector('#resetBtn');
+  const toggleGridBtn = root.querySelector('#toggleGridBtn');
+  const checkBtn = root.querySelector('#checkBtn');
+  const resetQuizBtn = root.querySelector('#resetQuizBtn');
+  const quizResult = root.querySelector('#quizResult');
+  let showGrid = true;
+
+  function fmtMHz(mhz){ return `${mhz.toFixed(1)} MHz`; }
+  function fmtUs(seconds){
+    const us = seconds * 1e6;
+    if (us >= 10) return `${us.toFixed(2)} µs`;
+    if (us >= 1) return `${us.toFixed(3)} µs`;
+    return `${us.toFixed(4)} µs`;
+  }
+  function roundRectPath(x,y,w,h,r){
+    const rr=Math.max(0,Math.min(r,w/2,h/2));
+    ctx.beginPath();ctx.moveTo(x+rr,y);ctx.arcTo(x+w,y,x+w,y+h,rr);ctx.arcTo(x+w,y+h,x,y+h,rr);ctx.arcTo(x,y+h,x,y,rr);ctx.arcTo(x,y,x+w,y,rr);ctx.closePath();
+  }
+  function setCanvasSizeForDPR(){
+    const dpr=window.devicePixelRatio||1;
+    const cssWidth=wrap.getBoundingClientRect().width;
+    const targetW=Math.max(320,Math.floor(cssWidth));
+    const targetH=Math.floor(targetW*0.50);
+    canvas.width=Math.floor(targetW*dpr);
+    canvas.height=Math.floor(targetH*dpr);
+    canvas.style.width=targetW+'px';
+    canvas.style.height=targetH+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {W:targetW,H:targetH};
+  }
+  function draw(fMHz){
+    const fHz=fMHz*1e6;
+    const T=1/fHz;
+    fLabel.textContent=fmtMHz(fMHz);
+    fMirror.textContent=fmtMHz(fMHz);
+    tLabel.textContent=fmtUs(T);
+    eqLine.textContent=`T = 1 ÷ f = 1 ÷ (${fMHz.toFixed(1)} × 10⁶)`;
+    exampleLine.textContent=`${fmtMHz(fMHz)} → ${fmtUs(T)}`;
+
+    const {W,H}=setCanvasSizeForDPR();
+    ctx.clearRect(0,0,W,H);
+    const margin={l:62,r:24,t:26,b:58};
+    const plotW=W-margin.l-margin.r;
+    const plotH=H-margin.t-margin.b;
+    const midY=margin.t+plotH/2;
+
+    if(showGrid){
+      ctx.strokeStyle='rgba(23,16,82,.10)';ctx.lineWidth=1;
+      for(let i=1;i<=4;i++){const y=margin.t+(plotH*i)/5;ctx.beginPath();ctx.moveTo(margin.l,y);ctx.lineTo(margin.l+plotW,y);ctx.stroke();}
+      for(let i=1;i<=6;i++){const x=margin.l+(plotW*i)/7;ctx.beginPath();ctx.moveTo(x,margin.t);ctx.lineTo(x,margin.t+plotH);ctx.stroke();}
+    }
+
+    ctx.strokeStyle='rgba(23,16,82,.55)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(margin.l,midY);ctx.lineTo(margin.l+plotW,midY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(margin.l,margin.t);ctx.lineTo(margin.l,margin.t+plotH);ctx.stroke();
+    ctx.fillStyle='rgba(23,16,82,.72)';ctx.font='700 12px Arial';
+    ctx.fillText('Amplitude',margin.l,margin.t-8);
+    ctx.fillText('Time →',margin.l+plotW-46,margin.t+plotH+34);
+
+    const cycles=Math.max(1,Math.min(10,.55*fMHz));
+    const topClearance=40,bottomClearance=24;
+    const maxA=Math.max(10,(plotH-topClearance-bottomClearance)/2);
+    const A=Math.min(plotH*.30,maxA);
+    ctx.strokeStyle='#d5a24d';ctx.lineWidth=4;ctx.beginPath();
+    for(let px=0;px<=plotW;px++){
+      const phase=(px/plotW)*cycles*2*Math.PI;
+      const x=margin.l+px;
+      const y=midY-Math.sin(phase)*A;
+      if(px===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    const oneCyclePx=plotW/cycles;
+    const startX=margin.l+plotW*.10;
+    const endX=Math.min(margin.l+plotW,startX+oneCyclePx);
+    const peakY=midY-A;
+    const bracketY=Math.max(margin.t+14,peakY-22);
+    ctx.strokeStyle='#9a4141';ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(startX,bracketY);ctx.lineTo(endX,bracketY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(startX,bracketY-10);ctx.lineTo(startX,bracketY+10);ctx.moveTo(endX,bracketY-10);ctx.lineTo(endX,bracketY+10);ctx.stroke();
+
+    const labelX=(startX+endX)/2;
+    ctx.fillStyle='rgba(255,255,255,.95)';ctx.strokeStyle='rgba(154,65,65,.45)';ctx.lineWidth=1;
+    if(typeof ctx.roundRect==='function'){ctx.beginPath();ctx.roundRect(labelX-15,bracketY-35,30,23,6);ctx.fill();ctx.stroke();}
+    else{roundRectPath(labelX-15,bracketY-35,30,23,6);ctx.fill();ctx.stroke();}
+    ctx.fillStyle='#9a4141';ctx.font='900 16px Arial';ctx.fillText('T',labelX-5,bracketY-18);
+
+    ctx.fillStyle='#171052';ctx.font='800 13px Arial';
+    ctx.fillText(`f = ${fmtMHz(fMHz)}   →   T = ${fmtUs(T)}`,margin.l,H-18);
+  }
+
+  function checkQuiz(){
+    const qs=root.querySelectorAll('#miniQuiz .quizq');
+    let correct=0,answered=0;
+    qs.forEach(q=>{
+      const chosen=q.querySelector('input:checked');
+      const feedback=q.querySelector('.feedback');
+      q.style.outline='none';
+      feedback.textContent='';
+      feedback.className='feedback';
+      if(chosen){
+        answered++;
+        if(chosen.value===q.dataset.answer){correct++;q.style.outline='2px solid rgba(86,122,83,.45)';feedback.textContent='Correct';feedback.classList.add('correct');}
+        else{q.style.outline='2px solid rgba(154,65,65,.35)';feedback.textContent='Review this item.';feedback.classList.add('incorrect');}
+      }else{
+        feedback.textContent='Select an answer.';
+        feedback.classList.add('incorrect');
+      }
+    });
+    quizResult.style.display='block';
+    quizResult.innerHTML=answered<qs.length
+      ? `You answered <strong>${answered}/${qs.length}</strong>. Current score: <strong>${correct}/${qs.length}</strong>.`
+      : `Final score: <strong>${correct}/${qs.length} (${Math.round(correct/qs.length*100)}%)</strong>.`;
+  }
+  function resetQuiz(){
+    root.querySelectorAll('#miniQuiz input[type="radio"]').forEach(i=>i.checked=false);
+    root.querySelectorAll('#miniQuiz .quizq').forEach(q=>q.style.outline='none');
+    root.querySelectorAll('#miniQuiz .feedback').forEach(f=>{f.textContent='';f.className='feedback';});
+    quizResult.style.display='none';quizResult.textContent='';
+  }
+
+  slider.addEventListener('input',()=>draw(parseFloat(slider.value)));
+  resetBtn.addEventListener('click',()=>{slider.value='5';draw(5);});
+  toggleGridBtn.addEventListener('click',()=>{showGrid=!showGrid;toggleGridBtn.textContent=showGrid?'Hide grid':'Show grid';draw(parseFloat(slider.value));});
+  checkBtn.addEventListener('click',checkQuiz);
+  resetQuizBtn.addEventListener('click',resetQuiz);
+  if('ResizeObserver' in window){new ResizeObserver(()=>draw(parseFloat(slider.value))).observe(wrap);}else{window.addEventListener('resize',()=>draw(parseFloat(slider.value)));}
+  draw(parseFloat(slider.value));
+})();
+</script></body></html>
