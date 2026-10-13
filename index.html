@@ -1,5 +1,12 @@
 <meta charset="utf-8">
 <title>CURE Student Resource Portal</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#133D55">
+<meta name="application-name" content="CURE Portal">
+<meta name="apple-mobile-web-app-title" content="CURE Portal">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -996,6 +1003,7 @@ root.removeAttribute("data-theme");
  const next=dark?"light":"dark"; root.setAttribute("data-theme",next); store.set("cure.theme",next);});
 show((location.hash||"").slice(1)||"home");
 loadAnn(); setInterval(loadAnn,5*60*1000);
+if("serviceWorker" in navigator && location.protocol==="https:"){navigator.serviceWorker.register("sw.js",{scope:"./"}).catch(()=>{});}
 })();
 </script>
 
