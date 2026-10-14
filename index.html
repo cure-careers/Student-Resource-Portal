@@ -427,7 +427,7 @@ const mail=(e)=>`<a href="mailto:${e}">${e}</a>`;
 const LOAN_DAYS=7, MAX_ACTIVE=2;
 
 /* ---------- DATA ---------- */
-const STUDENT_TABS=[["courses","Courses"],["library","Learning Library"],["books","Borrow Books"],["physics","Physics Review"],["prepry","Prepry"]];
+const STUDENT_TABS=[["account","My Student Account"],["courses","Courses"],["library","Learning Library"],["books","Borrow Books"],["physics","Physics Review"],["prepry","Prepry"]];
 const TOP_TABS=[];
 const OTHER_TABS=[["calendar","Calendar"],["clinical","Clinical"],["protocols","Protocols"],["careers","Careers"],["credentialing","My Registry Pathway"],["refer","Refer a Friend"]];
 const ZONE=new Set(STUDENT_TABS.map(t=>t[0]));
@@ -802,6 +802,28 @@ function wirePhysics(){
   qq.querySelectorAll(".opt")[ans].classList.add("right"); if(j!==ans) b.classList.add("wrong"); else score++;
   qq.querySelector(".why").hidden=false; set("qScore",score+" / "+QUIZ.length);})));
 }
+
+VIEWS.account=()=>`
+ ${head("Student Resources · STARS Student Supportal","My Student Account","See your grades, attendance and student account information any time in the STARS Student Supportal, CURE's student information system.")}
+ <div class="band navy">
+  <span class="eyebrow forsites">STARS Student Supportal</span>
+  <h3 style="font-size:1.5rem">Your grades and student account, online</h3>
+  <p>Sign in on the web or with the STARS Campus Solutions app for Android and iPhone.</p>
+  <div class="row"><a class="btn gold" href="https://studentsupportal.com/" target="_blank" rel="noopener">Open the Student Supportal ↗</a>${docBtn("Read the step by step guide","docs/stars-student-supportal-guide.pdf","How to Create a Student Supportal Account","gold")}</div>
+ </div>
+ <div class="group-title"><h3>First time? Create your account</h3><span>About 5 minutes</span></div>
+ <div class="path-steps">
+  ${[["Go to the Student Supportal","Open studentsupportal.com and click <b>Request New UserId</b>."],
+     ["Confirm who you are","Enter your Social Security number, email address and date of birth. STARS uses these to match you to your student record. Enter them only on the Student Supportal site, never in email or text."],
+     ["Create your User ID and password","Your password must be at least 8 characters, include at least one number, and use no special characters or symbols."],
+     ["Pick a security question","Choose a question, enter your answer and click <b>Create UserId</b>."],
+     ["Log in","Enter your new password and click <b>Log In</b>. Next time, just sign in with your User ID and password."]].map((x,i)=>`<div class="step"><div class="dot">${i+1}</div><div><h3>${x[0]}</h3><p class="note" style="font-size:.98rem">${x[1]}</p></div></div>`).join("")}
+ </div>
+ <div class="grid two">
+  <div class="card"><span class="tag">Get the app</span><h3>STARS Campus Solutions</h3><p>Search for <b>STARS Campus Solutions</b> in the App Store or Google Play, then sign in with the same User ID and password.</p></div>
+  <div class="card"><span class="tag">Trouble signing up?</span><h3>"There is no match on Social Security, Email Address and Birthdate"</h3><p>Your record needs to be checked. Contact the Admissions office at ${mail("admissions@cure.edu")} or the Registrar at ${mail("desirae@cure.edu")} to verify the information on file, then try again.</p></div>
+ </div>
+ <p class="note">Questions about a grade go to your instructor or the Program Director. Questions about your student account or records go to the Registrar.</p>`;
 
 VIEWS.prepry=()=>`
  ${head("Student Resources · Registry exam prep","Prepry","Registry prep for ARDMS, CCI and ARRT: SPI, Abdomen, OB/GYN, Vascular, Echo, Breast and ARRT Sonography, with practice questions, video lessons and mock exams.")}
