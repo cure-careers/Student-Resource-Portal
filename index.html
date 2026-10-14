@@ -644,7 +644,7 @@ VIEWS.home=()=>`
  <div class="grid">${PEOPLE.map(personCard).join("")}</div>`;
 
 VIEWS.courses=()=>`
- ${head("Student Resources · Diagnostic Medical Sonography, Vascular Technology, Echocardiography","Courses","2,400 clock hours over 8 quarters: 700 lecture, 800 lab and 900 externship. Choose your quarter, then open the syllabus or lecture slides for your course.")}
+ ${head("Student Resources · Diagnostic Medical Sonography, Vascular Technology & Echocardiography","Courses","2,400 clock hours over 8 quarters: 700 lecture, 800 lab and 900 externship. Choose your quarter, then open the syllabus or lecture slides for your course.")}
  <div class="filters" id="qfilter">${["All","Q1","Q2","Q3","Q4","Q5","Q6 to 8"].map((l,i)=>`<button class="fbtn" type="button" data-q="${i}" aria-pressed="false">${l}</button>`).join("")}</div>
  <div class="grid" id="courseGrid"></div>
  <div class="row"><span class="note">Hours shown as lecture / lab / externship. Source: CURE School Catalog 2024 to 2026.</span>${docBtn("Read the School Catalog","files/catalog.pdf","CURE School Catalog 2024 to 2026")}</div>`;
@@ -890,7 +890,7 @@ VIEWS.refer=()=>`
  <div class="grid two">
   <form class="card form" id="referForm" novalidate>
    <div class="two"><label for="rfName">Friend's name<input id="rfName" required></label><label for="rfContact">Friend's phone or email<input id="rfContact" required></label></div>
-   <label for="rfInterest">Interested in<select id="rfInterest"><option>Diagnostic Medical Sonography</option><option>Vascular Technology</option><option>Echocardiography</option><option>Not sure yet</option></select></label>
+   <label for="rfInterest">Program<input id="rfInterest" type="text" value="Diagnostic Medical Sonography, Vascular Technology &amp; Echocardiography" readonly></label>
    <div class="two"><label for="rfYou">Your name<input id="rfYou" required></label><label for="rfRole">You are a<select id="rfRole"><option>Current student</option><option>Graduate</option><option>Clinical site staff</option><option>Employer</option><option>Other</option></select></label></div>
    <label for="rfNote">Anything admissions should know<textarea id="rfNote" rows="3"></textarea></label>
    <button class="btn gold" type="submit">Email this referral to Admissions</button>
@@ -908,7 +908,7 @@ function wireRefer(){
  f.addEventListener("submit",e=>{e.preventDefault(); const g=id=>document.getElementById(id).value.trim();
   if(!g("rfName")||!g("rfContact")||!g("rfYou")){document.getElementById("rfErr").hidden=false;return;}
   document.getElementById("rfErr").hidden=true;
-  const t=`Friend: ${g("rfName")}\nContact: ${g("rfContact")}\nInterested in: ${g("rfInterest")}\nReferred by: ${g("rfYou")} (${g("rfRole")})${g("rfNote")?"\nNotes: "+g("rfNote"):""}`;
+  const t=`Friend: ${g("rfName")}\nContact: ${g("rfContact")}\nProgram: ${g("rfInterest")}\nReferred by: ${g("rfYou")} (${g("rfRole")})${g("rfNote")?"\nNotes: "+g("rfNote"):""}`;
   document.getElementById("rfText").textContent=t; document.getElementById("rfOut").hidden=false;
   const a=document.createElement("a"); a.href="mailto:admissions@cure.edu?cc="+encodeURIComponent("aldwyn@cure.edu,nicholas@cure.edu")+"&subject="+encodeURIComponent("CURE referral: "+g("rfName"))+"&body="+encodeURIComponent(t); a.click();
  });
@@ -950,7 +950,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElemen
 document.addEventListener("click",e=>{const b=e.target.closest("[data-doc]"); if(b){e.preventDefault(); openDoc(b.dataset.doc,b.dataset.title);}});
 
 /* ---------- HERO ---------- */
-function heroHTML(){return `<section class="hero"><div class="wrap hero-in"><div><span class="eyebrow">The CURE Center for Ultrasound Research &amp; Education</span><h1><span class="welcome">Welcome</span><span class="welcome-sub">to the Student Resource Portal</span></h1><p class="tagline">See deeper. <em>Scan with confidence.</em></p><p class="lede">The resource hub for CURE students, graduates, clinical partners and employers. Diagnostic Medical Sonography, Vascular Technology and Echocardiography.</p><div class="quick"><a class="q q2" href="#library">Student Resources ›</a><a class="q q3" href="#books">Borrow Books ›</a><a class="q q4" href="#credentialing">My Registry Pathway ›</a><a class="q q1" href="#refer">Refer a Friend ›</a></div></div><figure class="scan"><canvas class="beam" id="beam" width="880" height="704" aria-hidden="true"></canvas><figcaption>Live B mode sweep</figcaption></figure></div></section>`;}
+function heroHTML(){return `<section class="hero"><div class="wrap hero-in"><div><span class="eyebrow">The CURE Center for Ultrasound Research &amp; Education</span><h1><span class="welcome">Welcome</span><span class="welcome-sub">to the Student Resource Portal</span></h1><p class="tagline">See deeper. <em>Scan with confidence.</em></p><p class="lede">The resource hub for CURE students, graduates, clinical partners and employers of the Diagnostic Medical Sonography, Vascular Technology &amp; Echocardiography program.</p><div class="quick"><a class="q q2" href="#library">Student Resources ›</a><a class="q q3" href="#books">Borrow Books ›</a><a class="q q4" href="#credentialing">My Registry Pathway ›</a><a class="q q1" href="#refer">Refer a Friend ›</a></div></div><figure class="scan"><canvas class="beam" id="beam" width="880" height="704" aria-hidden="true"></canvas><figcaption>Live B mode sweep</figcaption></figure></div></section>`;}
 let beamRAF=0;
 function drawBeam(){
  cancelAnimationFrame(beamRAF);
