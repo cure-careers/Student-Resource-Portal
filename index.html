@@ -647,7 +647,7 @@ VIEWS.courses=()=>`
  ${head("Student Resources · Diagnostic Medical Sonography, Vascular Technology & Echocardiography","Courses","2,400 clock hours over 8 quarters: 700 lecture, 800 lab and 900 externship. Choose your quarter, then open the syllabus or lecture slides for your course.")}
  <div class="filters" id="qfilter">${["All","Q1","Q2","Q3","Q4","Q5","Q6 to 8"].map((l,i)=>`<button class="fbtn" type="button" data-q="${i}" aria-pressed="false">${l}</button>`).join("")}</div>
  <div class="grid" id="courseGrid"></div>
- <div class="row"><span class="note">Hours shown as lecture / lab / externship. Source: CURE School Catalog 2024 to 2026.</span>${docBtn("Read the School Catalog","files/catalog.pdf","CURE School Catalog 2024 to 2026")}</div>`;
+ <div class="row"><span class="note">Hours shown as lecture / lab / externship. Source: CURE School Catalog 2024 to 2027.</span>${docBtn("Read the School Catalog","files/catalog.pdf","CURE School Catalog 2024 to 2027")}</div>`;
 function renderCourses(q){
  const g=document.getElementById("courseGrid"); if(!g) return;
  g.innerHTML=COURSES.filter(c=>q===0||c[0]===q).map(c=>{const tot=c[3]+c[4]+c[5],sl=SLIDES[c[1]]||[];
@@ -660,7 +660,7 @@ VIEWS.library=()=>{const groups=[...new Set(LIB.map(r=>r[0]))];return `
   <a class="card libcard" href="#books"><span class="tag">Campus collection</span><h3>Borrow a textbook</h3><p>Reserve any of ${BOOKS.length} titles online and pick it up at the Registrar's office.</p></a>
   <a class="card libcard" href="#courses"><span class="tag">Your courses</span><h3>Syllabi and lecture slides</h3><p>Open them from your course card on the Courses tab.</p></a>
   <a class="card libcard" href="https://evolve.elsevier.com/" target="_blank" rel="noopener"><span class="tag">Textbook companion</span><h3>Elsevier Evolve Student Resources ↗</h3><p>Sign in with the Evolve account tied to your textbooks for chapter quizzes, image banks and case studies.</p></a>
-  <div class="card libcard"><span class="tag">Catalog</span><h3>School Catalog 2024 to 2026</h3><p>Program outline, policies and full course descriptions.</p><div class="meta">${docBtn("Read the catalog","files/catalog.pdf","CURE School Catalog 2024 to 2026","")}</div></div>
+  <div class="card libcard"><span class="tag">Catalog</span><h3>School Catalog 2024 to 2027</h3><span class="hours">Volume VIII, updated July 1, 2026</span><p>Program outline, policies and full course descriptions.</p><div class="meta">${docBtn("Read the catalog","files/catalog.pdf","CURE School Catalog 2024 to 2027","")}</div></div>
  </div>
  <div class="filters" id="libFilter">${["All","general","abdomen","OB GYN","vascular","echo","cases","video"].map((l,i)=>`<button class="fbtn" type="button" data-t="${l}" aria-pressed="${i===0}">${l==="All"?"All":l.replace(/^./,m=>m.toUpperCase())}</button>`).join("")}</div>
  ${groups.map(g=>`<div class="group-title"><h3>${esc(g)}</h3></div><div class="grid lib-grid">${LIB.filter(r=>r[0]===g).map(r=>extCard(r[1],r[2],r[3],r[4])).join("")}</div>`).join("")}
