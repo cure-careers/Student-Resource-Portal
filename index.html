@@ -705,7 +705,7 @@ function renderBooks(){
 function renderMyBooks(act){
  const el=document.getElementById("myBooksBody"); if(!el) return;
  if(!LIBSTATE.ready){ return; }
- if(!LIBSTATE.db||!LIBSTATE.me){ el.innerHTML=`Online reservations need you to be signed in. You can still request any available book by email, or ask at the Registrar's office.`; return; }
+ if(!LIBSTATE.db||!LIBSTATE.me){ el.innerHTML=`Find a book and tap <b>Request by email</b>. The Registrar will confirm when it is ready for pickup in Suite W101. You can also ask at the Registrar's office.`; return; }
  const mine=Object.entries(act).filter(([n,a])=>a.uid===LIBSTATE.me);
  if(!mine.length){ el.textContent="You have no books reserved or checked out. Find a title below and select Request."; return; }
  el.innerHTML=mine.map(([n,a])=>{const b=BOOKS.find(x=>String(x[0])===n)||[n,"Book #"+n];
